@@ -29,6 +29,8 @@ import static java.lang.Thread.sleep;
 public class Client {
   public static void main(String args[]) {
 
+
+//    FIXME: This is for testing purposes only
     try {
       sleep(2000);
     } catch (InterruptedException ex) {
@@ -38,14 +40,13 @@ public class Client {
 
     if (args.length == 1) {
 //      User entered just hostname
-      connect(args[0], 0);
+      connect(args[0], 50001);
     } else if (args.length == 2) {
 //      user Entered hostname  and port number
       connect(args[0], Integer.parseInt(args[1]));
     } else {
-//      FIXME: Confirm proper way to show optional arguments
-      System.err.println("Usage: java Client hostname <port>\n\t" +
-          "or java -jar Client.jar hostname <port>");
+      System.err.println("Usage: java Client <host> [port]\n\t" +
+          "or java -jar Client.jar <host> [port]");
     }
   }
 
@@ -53,8 +54,7 @@ public class Client {
    * Creates a TCP connection using the given hostname and port number
    *
    * @param hostname the server name or IP address to connect to
-   * @param port     the port number to connect to; 0 means choose any open
-   *                 port
+   * @param port     the port number to connect to
    */
   private static void connect(String hostname, int port) {
 
@@ -62,74 +62,115 @@ public class Client {
 
 //    Create a new TCP socket and try to connect to server
     try {
-      if (port == 0) { // Connect to default port
-        sock = new Socket(hostname, 50001);
-      } else { // Connect to specified port
-        sock = new Socket(hostname, port);
-      }
+      sock = new Socket(hostname, port);
     } catch (UnknownHostException ex) {
-      System.err.println("Unknown Host. Connection failed.");
+      System.err.println("Unknown Host. Connection Failed.");
       ex.printStackTrace();
       System.exit(-1);
     } catch (IOException ex) {
-      System.err.println("IOException");
+      System.err.println("Socket Creation IOException");
       ex.printStackTrace();
       System.exit(-1);
     }
 
-    clientLoop(sock);
+
+    // Setup streams for server input and output as well as user input
+    try {
+      PrintWriter outStream = new PrintWriter(sock.getOutputStream(),
+          true);
+
+      BufferedReader inStream =
+          new BufferedReader(new InputStreamReader(sock.getInputStream()));
+
+      Scanner keyboard = new Scanner(System.in);
+      //  BufferedReader userInput =
+      //  new BufferedReader(new InputStreamReader(System.in));
+
+      // Connection succeeded, loop indefinitely and accept user input
+      clientLoop(outStream, inStream, keyboard);
+
+      sock.close();
+
+    } catch (IOException ex) {
+      System.err.println("Error Creating IO Streams");
+      ex.printStackTrace();
+      System.exit(-1);
+    }
+
 
   }
 
-  private static void clientLoop(Socket sock) {
+  /**
+   * Loops indefinitely until user enters BYE command. Parses user inputs and
+   * sends server only valid protocol commands.
+   *
+   * @param outStream PrintWriter output stream connected to the server
+   * @param inStream  BufferedReader input stream connected to the server
+   * @param keyboard  Scanner connected to System.in in order to get user
+   *                  input
+   */
+  private static void clientLoop(PrintWriter outStream,
+                                 BufferedReader inStream, Scanner keyboard) {
 
-    PrintWriter outStream = null;
-    BufferedReader inStream = null;
-    Scanner userStream = null;
     String userInput;
+    String currentPath = "~";
 
-//    First, setup streams for TCP in/out and user input
-    try {
-      outStream = new PrintWriter(sock.getOutputStream(), true);
 
-      inStream =
-          new BufferedReader(new InputStreamReader(sock.getInputStream()));
-
-      userStream = new Scanner(System.in);
-//      BufferedReader userInput =
-//          new BufferedReader(new InputStreamReader(System.in));
-    } catch (IOException ex) {
-      System.err.println("Error Creating Input and Output Streams");
-      ex.printStackTrace();
-      System.exit(-1);
-    }
-
+    // Connection is complete, read message from server (should be "HELLO")
     try {
       System.out.println("Message from Server: " + inStream.readLine());
     } catch (IOException ex) {
       System.out.println("Error Receiving Welcome Message from Server");
       ex.printStackTrace();
+      System.exit(-1);
     }
 
-//    TODO: Think about ways to handle different user inputs
+    // Loop forever, read user inputs from command line
     while (true) {
-      displayMenu("");
-      userInput = userStream.nextLine();
+      displayMenu(currentPath);
+      userInput = keyboard.nextLine().toUpperCase();
 
+      // User wishes to leave,
       if (userInput.equals("BYE")) {
         outStream.println(userInput);
         System.out.println("Exiting program.");
         break;
+      } else if (userInput.equals("HELP")) {
+        displayHelpMenu();
       } else {
-        outStream.println(userInput);
+        System.out.println("Invalid command. Type HELP to learn more.");
       }
     }
 
 
+
+
   }
 
+  /**
+   * Displays list of all client commands and their usage.
+   */
+  private static void displayHelpMenu() {
+
+    StringBuilder string = new StringBuilder();
+
+    string.append("Valid Server Commands:\n\n");
+    string.append("HELP\n");
+    string.append("\t\tDisplays list of all available commands\n\n");
+    string.append("BYE\n");
+    string.append("\t\tDisconnects from the server and closes client\n\n");
+
+    System.out.println(string);
+  }
+
+
+  /**
+   * Displays an interactive shell menu where the user can type commands.
+   *
+   * @param str a String that shows the user what server directory they are in
+   */
   private static void displayMenu(String str) {
-    System.out.println("$");
+    System.out.println(str + " $ ");
     System.out.print("> ");
   }
 }
