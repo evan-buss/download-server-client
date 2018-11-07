@@ -49,7 +49,6 @@ public class Server {
 
     // Server is bound to a port, wait for connections in a loop
     waitForConnection(server);
-
   }
 
 

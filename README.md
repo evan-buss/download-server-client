@@ -5,31 +5,22 @@ the server and be able to traverse directories and download any files found.
 
 ## Compilation
 
-The program can be compiled into jar files or .class files.
+The program needs to be compile from .java files to .class files in order to
+be run.
 
 ### Client
-
-#### Jar
-
-Add proper commands here
-
-#### Class File
 
 `javac Client.java`
 
 ### Server
 
-#### Jar
-
-Add proper commands here
-
-#### Class File
-
 `javac Server.java`
 
 ## Execution
 
-The program can be run via compile jar files or via compiled .class files.
+The program files can then be run once compiled.
+
+The server program should be executed before the client.
 
 ### Client
 
@@ -38,27 +29,17 @@ The client receives the host and optional port number as command line arguments.
 By default, the client will attempt to connect to port 5001 if a specific port
 number is not specified.
 
-#### Jar
-
-`java -jar Client host [port]`
-
-#### Class File
-
 `java Client host [port]`
 
 ### Server
 
-The server receives an optional port number to bind to as a command line
+The server receives an optional port number that specifies which server port
+to bind to
+to as a command line
 argument.
 
 By default, the server will attempt to connect to the host on port 5001 if a
 specific port number is not specified.
-
-#### Jar
-
-`java -jar Server [port]`
-
-#### Class File
 
 `java Server [port]`
 
@@ -67,6 +48,8 @@ specific port number is not specified.
 The project consists of two parts. The download server and the client. The
 client serves to test the download server. The server program allows a
 connected client to navigate its directories and download files.
+
+The server is implemented with with a multi-threaded model. This enables multiple clients to be connected at the same time without without server blocking.
 
 ## Server Protocol
 
@@ -83,3 +66,5 @@ connected client to navigate its directories and download files.
 - Response: Server Closes Connection
 
 ## Issues
+
+No reported issues at the moment.

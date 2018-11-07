@@ -29,8 +29,7 @@ import static java.lang.Thread.sleep;
 public class Client {
   public static void main(String args[]) {
 
-
-//    FIXME: This is for testing purposes only
+    // FIXME: Testing purposes only
     try {
       sleep(2000);
     } catch (InterruptedException ex) {
@@ -39,10 +38,10 @@ public class Client {
     }
 
     if (args.length == 1) {
-//      User entered just hostname
+      // User only entered a hostname
       connect(args[0], 50001);
     } else if (args.length == 2) {
-//      user Entered hostname  and port number
+      // User entered hostname and port number
       connect(args[0], Integer.parseInt(args[1]));
     } else {
       System.err.println("Usage: java Client <host> [port]\n\t" +
@@ -60,7 +59,7 @@ public class Client {
 
     Socket sock = null;
 
-//    Create a new TCP socket and try to connect to server
+    // Create a new TCP socket and try to connect to server
     try {
       sock = new Socket(hostname, port);
     } catch (UnknownHostException ex) {
@@ -72,7 +71,6 @@ public class Client {
       ex.printStackTrace();
       System.exit(-1);
     }
-
 
     // Setup streams for server input and output as well as user input
     try {
@@ -96,8 +94,6 @@ public class Client {
       ex.printStackTrace();
       System.exit(-1);
     }
-
-
   }
 
   /**
@@ -114,7 +110,6 @@ public class Client {
 
     String userInput;
     String currentPath = "~";
-
 
     // Connection is complete, read message from server (should be "HELLO")
     try {
@@ -141,10 +136,6 @@ public class Client {
         System.out.println("Invalid command. Type HELP to learn more.");
       }
     }
-
-
-
-
   }
 
   /**
