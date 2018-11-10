@@ -16,6 +16,10 @@ be run.
 
 `javac Server.java`
 
+### Both
+
+`javac Client.java Server.java`
+
 ## Execution
 
 The program files can then be run once compiled.
@@ -29,7 +33,7 @@ The client receives the host and optional port number as command line arguments.
 By default, the client will attempt to connect to port 5001 if a specific port
 number is not specified.
 
-`java Client host [port]`
+`java Client <host> [port]`
 
 ### Server
 
