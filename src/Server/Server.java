@@ -7,7 +7,8 @@
  * Professor: Dr. Frye
  * Assignment: Download Client / Server
  * Filename: Server.java
- * Purpose:  Server that sends files to clients
+ * Purpose:  Multi-threaded server that allows users to
+ *           traverse its directories and download files
  * Language: Java 8 (1.8.0_101)
  * Compilation Command: javac Server.java
  * Execution Command: java Server [port]

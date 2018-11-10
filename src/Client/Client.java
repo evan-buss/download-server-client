@@ -7,8 +7,7 @@
  * Professor: Dr. Frye
  * Assignment: Download Client / Server
  * Filename: Client.java
- * Purpose:  Client that sends requests to the download
- * server
+ * Purpose:  Client that sends requests to the download server.
  * Language: Java 8 (1.8.0_101)
  * Compilation Command: javac Client.java
  * Execution Command: java Client hostname <port>
@@ -110,6 +109,7 @@ public class Client {
 
     String userInput;
     String currentPath = "~";
+    boolean run = true;
 
     // Connection is complete, read message from server (should be "HELLO")
     try {
@@ -121,19 +121,21 @@ public class Client {
     }
 
     // Loop forever, read user inputs from command line
-    while (true) {
-      displayMenu(currentPath);
+    while (run) {
+      shellMenu(currentPath);
       userInput = keyboard.nextLine().toUpperCase();
 
-      // User wishes to leave,
-      if (userInput.equals("BYE")) {
-        outStream.println(userInput);
-        System.out.println("Exiting program.");
-        break;
-      } else if (userInput.equals("HELP")) {
-        displayHelpMenu();
-      } else {
-        System.out.println("Invalid command. Type HELP to learn more.");
+      switch (userInput) {
+        case "BYE":
+          outStream.println(userInput);
+          run = false;
+          System.out.println("Exiting program.");
+          break;
+        case "HELP":
+          displayHelpMenu();
+          break;
+        default:
+          System.out.println("Invalid command. Type HELP to learn more.");
       }
     }
   }
@@ -147,9 +149,9 @@ public class Client {
 
     string.append("Valid Server Commands:\n\n");
     string.append("HELP\n");
-    string.append("\t\tDisplays list of all available commands\n\n");
+    string.append("\tDisplays list of all available commands\n\n");
     string.append("BYE\n");
-    string.append("\t\tDisconnects from the server and closes client\n\n");
+    string.append("\tDisconnects from the server and closes client\n\n");
 
     System.out.println(string);
   }
@@ -160,7 +162,7 @@ public class Client {
    *
    * @param str a String that shows the user what server directory they are in
    */
-  private static void displayMenu(String str) {
+  private static void shellMenu(String str) {
     System.out.println(str + " $ ");
     System.out.print("> ");
   }
