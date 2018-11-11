@@ -21,8 +21,6 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-import static java.lang.Thread.sleep;
-
 public class Client {
     public static void main(String args[]) {
 
@@ -94,8 +92,10 @@ public class Client {
     private static void clientLoop(PrintWriter outStream,
                                    BufferedReader inStream, Scanner keyboard) {
 
-        String userInput;
+        String rawInput; // The unmodified string from the user's input
+        String parsedCommand; // The parsed command from rawInput
         String currentPath = "~";
+        // String directory = "";
         boolean run = true;
 
         // Connection is complete, read message from server (should be "HELLO")
@@ -110,13 +110,56 @@ public class Client {
         // Loop forever, read user inputs from command line
         while (run) {
             shellMenu(currentPath);
-            userInput = keyboard.nextLine().toUpperCase();
+            rawInput = keyboard.nextLine().toUpperCase();
 
-            switch (userInput) {
+            // If the input has multiple parameters, split it
+            if (rawInput.split("\\s+").length > 1) {
+                parsedCommand = rawInput.split("\\s+")[0];
+            } else {
+                parsedCommand = rawInput;
+            }
+
+
+            switch (parsedCommand) {
                 case "BYE":
-                    outStream.println(userInput);
+                    outStream.println(parsedCommand);
                     run = false;
                     System.out.println("Exiting program.");
+                    break;
+                case "PWD":
+                    outStream.println(parsedCommand);
+
+                    // Set the bash prompt to the current server directory
+                    try {
+                        currentPath = inStream.readLine();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "DIR":
+                    outStream.println(parsedCommand);
+                    try {
+
+                        // Get the response string.
+                        String response = inStream.readLine();
+                        // PROTOCOL: The response string will be broken into
+                        // multiple lines and use the '/' char to indicate a
+                        // newline. The client must translate those
+                        // characters into new lines.
+                        response =  response.replace('/', '\n');
+                        System.out.println("Type         Name");
+                        System.out.println("----         ----");
+                        System.out.println(response);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "CD":
+                    String output = changeDirectory(rawInput, outStream,
+                            inStream);
+                    if (!output.equals("ERROR")) {
+                        currentPath = output;
+                    }
                     break;
                 case "HELP":
                     displayHelpMenu();
@@ -125,6 +168,36 @@ public class Client {
                     System.out.println("Invalid command. Type HELP to learn more.");
             }
         }
+    }
+
+    //TODO: Implement this when done eating
+    // Attempts to change server directory, displays results
+    private static String changeDirectory(String rawInput,
+                                          PrintWriter outStream,
+                                          BufferedReader inStream) {
+
+        String response;
+        // If the input is 2 commands, send it to server
+        if (rawInput.split("\\s+").length == 2) {
+            outStream.println(rawInput); // Send server command + argument
+            try {
+                // response should be the new directory string
+                response = inStream.readLine();
+                //if response is ERROR, let user know what went wrong.
+                //FIXME, not sure if I should have more specific responses
+                if (response.equals("ERROR")) {
+                    System.out.println("CD Error: Server could not change directories.");
+                } else {
+                    return response;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            // Otherwise the input is invalid
+        } else {
+            System.out.println("Invalid usage of CD command. Type HELP to learn more.");
+        }
+        return "ERROR";
     }
 
     /**
@@ -139,6 +212,14 @@ public class Client {
         string.append("\tDisplays list of all available commands\n\n");
         string.append("BYE\n");
         string.append("\tDisconnects from the server and closes client\n\n");
+        string.append("PWD\n");
+        string.append("\tDisplays your current directory on the server\n\n");
+        string.append("DIR\n");
+        string.append("\tDisplays file and folder listings of the current " +
+                "directory\n\n");
+        string.append("CD <absolute/relative directory>\n");
+        string.append("\tNavigate to the specified directory.\n" +
+                "\tType .. to move up a directory\n\n");
 
         System.out.println(string);
     }

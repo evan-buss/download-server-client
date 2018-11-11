@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -78,7 +75,6 @@ class ClientConnection implements Runnable {
     private Socket client;
     private PrintWriter outStream;
     private BufferedReader inStream;
-    private String userInput;
 
     /**
      * Constructor. Takes the connected client socket as a parameter.
@@ -104,6 +100,12 @@ class ClientConnection implements Runnable {
      */
     private void clientHandler() {
 
+        boolean run = true;
+        // Initialize the current directory file to the program's directory
+        File currentDirectory = new File(System.getProperty("user.dir"));
+        String rawInput = "";
+        String parsedCommand = "";
+
         // Create server input and output streams
         try {
             outStream = new PrintWriter(client.getOutputStream(), true);
@@ -115,24 +117,53 @@ class ClientConnection implements Runnable {
             ex.printStackTrace();
         }
 
-        System.out.println(
-                "Server connected to a client at " + client.getInetAddress() + " on " + Thread.currentThread().getName());
+        System.out.println("Server connected to a client at "
+                + client.getInetAddress() + " on "
+                + Thread.currentThread().getName());
 
         // Send client a message that they have successfully connected
         outStream.println("HELLO");
 
-        while (true) {
+        while (run) {
+
             try {
-                userInput = inStream.readLine();
+                rawInput = inStream.readLine();
+
+                if (rawInput.split("\\s+").length == 2) {
+                    parsedCommand = rawInput.split("\\s+")[0];
+                } else {
+                    parsedCommand = rawInput;
+                }
+
             } catch (IOException ex) {
                 System.err.println("Error Reading From Input Stream");
                 ex.printStackTrace();
             }
 
-            if (userInput.equals("BYE")) {
-                System.out.println(
-                        "Closing client's connection from " + client.getInetAddress() + " on " + Thread.currentThread().getName());
-                break;
+            switch (parsedCommand) {
+                case "BYE":
+                    System.out.println("Closing client's connection from "
+                            + client.getInetAddress() + " on "
+                            + Thread.currentThread().getName());
+                    run = false;
+                    break;
+                case "PWD":
+                    System.out.println("PWD Received");
+                    outStream.println(currentDirectory.getPath());
+                    break;
+                case "DIR":
+                    System.out.println("DIR Received");
+                    outStream.println(getDirectory(currentDirectory.getPath()));
+                    break;
+                case "CD":
+                    System.out.println("CD Received");
+                    currentDirectory = changeDirectory(rawInput.split("\\s+")[1],
+                            currentDirectory, outStream);
+                    outStream.println(currentDirectory.getPath());
+
+                    break;
+                default:
+                    System.out.println("Client's input is invalid.");
             }
         }
 
@@ -142,6 +173,57 @@ class ClientConnection implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private File changeDirectory(String clientInput,
+                                 File currentDirectory,
+                                 PrintWriter outStream) {
+        // outStream.println(directory);
+
+        File newFilePath = null;
+
+        //Go up a level
+        if (clientInput.equals("..")) {
+            newFilePath = new File(currentDirectory.getParent());
+        }
+
+
+        return newFilePath;
+
+        // System.out.println(File.separator + " " + File.pathSeparator);
+
+    }
+
+    private String getDirectory(String directory) {
+        File folder = new File(directory);
+        File[] directoryListing = folder.listFiles();
+        System.out.println("There are " + directory.length() + " items in the" +
+                " directory.");
+
+        StringBuilder output = new StringBuilder();
+
+        // Build a new string with files at the top and directories at the
+        // bottom. Replace all newline characters with the '/' char because
+        // linux and windows file names cannot contain it. This allows us to use
+        // println(). Otherwise the multiple newlines would break the string
+        // apart at the newline char when reading it with readLine() on the
+        // client.
+        if (directoryListing != null) {
+            for (File file : directoryListing) {
+                if (file.isFile()) {
+                    output.insert(0, "File" + "         "  + file.getName() +
+                            "/" );
+                    // output.append(file.getName());
+                } else if (file.isDirectory()) {
+                    output.append("Folder");
+                    output.append("       ");
+                    output.append(file.getName());
+                    output.append("/");
+                }
+            }
+        }
+
+        return output.toString();
     }
 }
 
