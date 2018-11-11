@@ -1,6 +1,7 @@
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Files;
 
 public class Server {
     public static void main(String args[]) {
@@ -129,7 +130,7 @@ class ClientConnection implements Runnable {
             try {
                 rawInput = inStream.readLine();
 
-                if (rawInput.split("\\s+").length == 2) {
+                if (rawInput.split("\\s+").length >= 2) {
                     parsedCommand = rawInput.split("\\s+")[0];
                 } else {
                     parsedCommand = rawInput;
@@ -140,7 +141,7 @@ class ClientConnection implements Runnable {
                 ex.printStackTrace();
             }
 
-            switch (parsedCommand) {
+            switch (parsedCommand.toUpperCase()) {
                 case "BYE":
                     System.out.println("Closing client's connection from "
                             + client.getInetAddress() + " on "
@@ -148,22 +149,42 @@ class ClientConnection implements Runnable {
                     run = false;
                     break;
                 case "PWD":
-                    System.out.println("PWD Received");
+                    System.out.println(Thread.currentThread().getName() +
+                            ": PWD Received");
                     outStream.println(currentDirectory.getPath());
                     break;
                 case "DIR":
                     System.out.println("DIR Received");
+                    System.out.println(Thread.currentThread().getName() +
+                            ": DIR Received");
                     outStream.println(getDirectory(currentDirectory.getPath()));
                     break;
                 case "CD":
-                    System.out.println("CD Received");
-                    currentDirectory = changeDirectory(rawInput.split("\\s+")[1],
-                            currentDirectory, outStream);
-                    outStream.println(currentDirectory.getPath());
+                    System.out.println(Thread.currentThread().getName() +
+                            ": CD Received");
 
+                    /* Split the client request into strings based on space
+                    characters */
+                    String[] raw = rawInput.split("\\s+");
+
+                    //Create a new string excluding the "CD" part of the array
+                    String targetDir = rawInput.substring(rawInput.indexOf(" ")).trim();
+                    System.out.println("Attempting to navigate to : " + targetDir);
+
+                    // Attempt to change directory and store output in String
+                    String output = changeDirectory(targetDir,
+                            currentDirectory, outStream);
+
+                    // There was an error navigating to new directory
+                    if (!output.equals("DDNE")) {
+                        currentDirectory = new File(output);
+                    }
+                    outStream.println(output);
                     break;
                 default:
-                    System.out.println("Client's input is invalid.");
+                    outStream.println("Client Request Error.");
+                    System.out.println(Thread.currentThread().getName() +
+                            ": Client sent invalid command");
             }
         }
 
@@ -175,44 +196,46 @@ class ClientConnection implements Runnable {
         }
     }
 
-    private File changeDirectory(String clientInput,
-                                 File currentDirectory,
-                                 PrintWriter outStream) {
-        // outStream.println(directory);
-
-        File newFilePath = null;
+    private String changeDirectory(String clientInput,
+                                   File currentDirectory,
+                                   PrintWriter outStream) {
+        File newFilePath;
 
         //Go up a level
         if (clientInput.equals("..")) {
             newFilePath = new File(currentDirectory.getParent());
+        } else if (clientInput.contains(File.separator)) {
+            newFilePath = new File(clientInput);
+        } else {
+            newFilePath = new File(currentDirectory, clientInput);
         }
 
-
-        return newFilePath;
-
-        // System.out.println(File.separator + " " + File.pathSeparator);
-
+        if (newFilePath.exists() && newFilePath.isDirectory() && newFilePath.canRead()) {
+            return newFilePath.getAbsolutePath();
+        } else if (!newFilePath.canRead()) {
+            return "PD";
+        } else {
+            return "DDNE";
+        }
     }
 
     private String getDirectory(String directory) {
         File folder = new File(directory);
         File[] directoryListing = folder.listFiles();
-        System.out.println("There are " + directory.length() + " items in the" +
-                " directory.");
-
         StringBuilder output = new StringBuilder();
 
-        // Build a new string with files at the top and directories at the
-        // bottom. Replace all newline characters with the '/' char because
-        // linux and windows file names cannot contain it. This allows us to use
-        // println(). Otherwise the multiple newlines would break the string
-        // apart at the newline char when reading it with readLine() on the
-        // client.
+        /* Build a new string with files at the top and directories at the
+            bottom. Replace all newline characters with the '/' char because
+            linux and windows file names cannot contain it. This allows us to use
+            println(). Otherwise the multiple newlines would break the string
+            apart at the newline char when reading it with readLine() on the
+            client.
+        */
         if (directoryListing != null) {
             for (File file : directoryListing) {
                 if (file.isFile()) {
-                    output.insert(0, "File" + "         "  + file.getName() +
-                            "/" );
+                    output.insert(0, "File" + "         " + file.getName() +
+                            "/");
                     // output.append(file.getName());
                 } else if (file.isDirectory()) {
                     output.append("Folder");

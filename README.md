@@ -80,6 +80,9 @@ directory. The client displays this list to the user.
 
 #### CD <absolute path/relative path/..>
 - Tells the server to switch to a new directory.
+- Only accepts a single argument at a time. If there are multiple words, they
+ are considered part of the same directory name
+    - Such as `cd Hello World` 
 - The ".." command moves up to the parent directory.
 - Response: The server sends back the updated working path directory on 
 success. On failure, it sends back the appropriate error code:
@@ -91,4 +94,4 @@ success. On failure, it sends back the appropriate error code:
 
 ## Issues
 
-No reported issues at the moment.
+No issues reported.

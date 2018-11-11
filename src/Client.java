@@ -110,7 +110,7 @@ public class Client {
         // Loop forever, read user inputs from command line
         while (run) {
             shellMenu(currentPath);
-            rawInput = keyboard.nextLine().toUpperCase();
+            rawInput = keyboard.nextLine();
 
             // If the input has multiple parameters, split it
             if (rawInput.split("\\s+").length > 1) {
@@ -120,7 +120,7 @@ public class Client {
             }
 
 
-            switch (parsedCommand) {
+            switch (parsedCommand.toUpperCase()) {
                 case "BYE":
                     outStream.println(parsedCommand);
                     run = false;
@@ -139,14 +139,13 @@ public class Client {
                 case "DIR":
                     outStream.println(parsedCommand);
                     try {
+                        /* PROTOCOL: The response string will be broken into
+                        multiple lines and use the '/' char to indicate a
+                        newline. The client will translate these characters
+                        into new lines. */
 
-                        // Get the response string.
                         String response = inStream.readLine();
-                        // PROTOCOL: The response string will be broken into
-                        // multiple lines and use the '/' char to indicate a
-                        // newline. The client must translate those
-                        // characters into new lines.
-                        response =  response.replace('/', '\n');
+                        response = response.replace('/', '\n');
                         System.out.println("Type         Name");
                         System.out.println("----         ----");
                         System.out.println(response);
@@ -177,18 +176,24 @@ public class Client {
                                           BufferedReader inStream) {
 
         String response;
-        // If the input is 2 commands, send it to server
-        if (rawInput.split("\\s+").length == 2) {
+        // Make sure that the client input has atleast a single argument
+        if (rawInput.split("\\s+").length >= 2) {
             outStream.println(rawInput); // Send server command + argument
             try {
                 // response should be the new directory string
                 response = inStream.readLine();
-                //if response is ERROR, let user know what went wrong.
-                //FIXME, not sure if I should have more specific responses
-                if (response.equals("ERROR")) {
-                    System.out.println("CD Error: Server could not change directories.");
-                } else {
-                    return response;
+
+                // Get response. Translate error codes if present.
+                switch (response) {
+                    case "DDNE":
+                        System.out.println("CD Error: Directory does not exist.");
+                        return "ERROR";
+                    case "PD":
+                        System.out.println("CD Error: Directory Access " +
+                                "Permission Denied");
+                        return "ERROR";
+                    default:
+                        return response;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
