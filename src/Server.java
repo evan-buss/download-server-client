@@ -46,6 +46,8 @@ public class Server {
         // infinite loop waiting for new connections
         while (true) {
 
+            // TODO: may change this to have a user command to exit instead
+            // of looping forever
             try {
                 // Accept any incoming connections
                 client = server.accept();
@@ -180,6 +182,9 @@ class ClientConnection implements Runnable {
                         currentDirectory = new File(output);
                     }
                     outStream.println(output);
+                    break;
+                case "DOWNLOAD":
+                    System.out.println("Download shit here");
                     break;
                 default:
                     outStream.println("Client Request Error.");

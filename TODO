@@ -1,3 +1,21 @@
-Allow users to download multiple files at once with the Download command.
+- Allow users to download multiple files at once with the Download command.
+- Allow users to enter entire file name, including the extension or just the
+filename
+- Download progress bar/indicator?
 
-Fix cd so that you can have two word file names
+- Create logging classes for both the server and the client
+
+Sample Logging Output
+
+Client
+
+Connected to [Server]/[Port] at [Time]
+    User Inputs:
+    [Time] CD
+    [Time] DIR
+        Response
+    TEST
+    TEST
+    WTF
+    BYE
+Running for [Time]

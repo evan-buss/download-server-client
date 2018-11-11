@@ -83,7 +83,16 @@ directory. The client displays this list to the user.
 - Only accepts a single argument at a time. If there are multiple words, they
  are considered part of the same directory name
     - Such as `cd Hello World` 
-- The ".." command moves up to the parent directory.
+- **Valid Arguments:**
+    - .. (two period characters) 
+        - moves up to the parent directory.
+    - absolute path
+        - Navigates to specified path
+        - Ex) `cd /home/evan/Downloads`
+    - relative path
+        - Navigates to specified path
+        - Ex) `cd Downloads`
+
 - Response: The server sends back the updated working path directory on 
 success. On failure, it sends back the appropriate error code:
     - "DDNE" - Directory does not exist

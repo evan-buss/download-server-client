@@ -160,6 +160,9 @@ public class Client {
                         currentPath = output;
                     }
                     break;
+                case "DOWNLOAD":
+                    System.out.println("Download shit here");
+                    break;
                 case "HELP":
                     displayHelpMenu();
                     break;
@@ -169,14 +172,12 @@ public class Client {
         }
     }
 
-    //TODO: Implement this when done eating
-    // Attempts to change server directory, displays results
     private static String changeDirectory(String rawInput,
                                           PrintWriter outStream,
                                           BufferedReader inStream) {
 
         String response;
-        // Make sure that the client input has atleast a single argument
+        // Make sure that the client input has at least a single argument
         if (rawInput.split("\\s+").length >= 2) {
             outStream.println(rawInput); // Send server command + argument
             try {
@@ -223,6 +224,9 @@ public class Client {
         string.append("\tDisplays file and folder listings of the current " +
                 "directory\n\n");
         string.append("CD <absolute/relative directory>\n");
+        string.append("\tNavigate to the specified directory.\n" +
+                "\tType .. to move up a directory\n\n");
+        string.append("DOWNLOAD <filename>\n");
         string.append("\tNavigate to the specified directory.\n" +
                 "\tType .. to move up a directory\n\n");
 
