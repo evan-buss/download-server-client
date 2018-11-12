@@ -165,10 +165,6 @@ class ClientConnection implements Runnable {
                     System.out.println(Thread.currentThread().getName() +
                             ": CD Received");
 
-                    /* Split the client request into strings based on space
-                    characters */
-                    String[] raw = rawInput.split("\\s+");
-
                     //Create a new string excluding the "CD" part of the array
                     String targetDir = rawInput.substring(rawInput.indexOf(" ")).trim();
                     System.out.println("Attempting to navigate to : " + targetDir);
@@ -184,7 +180,12 @@ class ClientConnection implements Runnable {
                     outStream.println(output);
                     break;
                 case "DOWNLOAD":
-                    System.out.println("Download shit here");
+                    System.out.println(Thread.currentThread().getName() +
+                            ": Download Received");
+                    // Create a new string excluding the command
+                    String targetFile = rawInput.substring(rawInput.indexOf(" ")).trim();
+
+                    sendFile(targetFile, currentDirectory, outStream, inStream);
                     break;
                 default:
                     outStream.println("Client Request Error.");
@@ -198,6 +199,74 @@ class ClientConnection implements Runnable {
             client.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void sendFile(String fileName, File directory,
+                              PrintWriter outStream, BufferedReader inStream) {
+
+        InputStream fileIn = null;
+        DataOutputStream dataOut = null;
+        String clientResponse = "";
+        /*
+        Logic: You have to open a local filestream on the file
+                read from the filestream to an outputstream connected to the socket.
+         */
+
+        // Create a new file with the given filename
+        File file = new File(directory, fileName)   ;
+
+        if (file.isFile() && file.exists() && file.canRead()) {
+            try {
+                fileIn = new FileInputStream(file);
+            } catch (FileNotFoundException e) {
+                System.out.println("File Not Found.");
+                e.printStackTrace();
+            }
+
+            try {
+                dataOut = new DataOutputStream(client.getOutputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            outStream.println("READY");
+
+            try {
+                 clientResponse = inStream.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            if (clientResponse.equals("READY")) {
+            //    start downloading
+                System.out.println("Client is ready for the file.");
+                // Send client the length of the file
+                outStream.println(file.length());
+
+                byte[] data = new byte[8096];
+                try {
+                    System.out.println("sending the file");
+                    int bytesRemaining = (int) file.length();
+                    int bytesRead;
+                    while (bytesRemaining > 0) {
+                        bytesRead = fileIn.read(data);
+                        bytesRemaining -= bytesRead;
+                        System.out.println("Bytes Remaining: " + bytesRemaining);
+                        dataOut.write(data, 0, bytesRead);
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            } else {
+                System.out.println("Client has aborted the file download.");
+            }
+
+
+        } else {
+            outStream.println("FNF");
         }
     }
 

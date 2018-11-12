@@ -3,7 +3,11 @@
 filename
 - Download progress bar/indicator?
 
+- Look into using scanner to parse shit instead of splitting then substringing.
+
 - Create logging classes for both the server and the client
+
+- Make sure I close appropriate streams when necessary
 
 Sample Logging Output
 
