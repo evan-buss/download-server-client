@@ -16,12 +16,11 @@
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class Client {
 
-    static Socket sock = null;
+    private static Socket sock = null;
 
     public static void main(String args[]) {
 
@@ -186,101 +185,83 @@ public class Client {
     private static void receiveFile(String fileName, Scanner keyboard,
                                     PrintWriter outStream, BufferedReader inStream) {
 
-        // Create new file object
+        // Create new file object for the user's given filename
         File newFile = new File(System.getProperty("user.dir"), fileName);
-        // FileOutputStream fileOut = null;
-        // OutputStreamWriter fileOut = null;
-        Writer fileOut = null;
-        DataInputStream dataIn = null;
-        boolean downloadCancelled = false;
-        int fileSize;
+        byte[] buffer = new byte[1000000];
+        boolean readyToReceive = false;
+        InputStream bytesIn = null;
+        BufferedOutputStream fileWriter = null;
 
         if (newFile.exists()) {
             System.out.print("File already exists. " +
                     "Would you like to overwrite it? [y/n] ");
 
             // User wants to overwrite the file.
-            // FIXME: use a boolean instead of assign shit in multiple places. do it at the end
             if (keyboard.nextLine().toLowerCase().equals("y")) {
-                try {
-                    //overwrite file instead of appending
-                    // fileOut = new OutputStreamWriter(new FileOutputStream(newFile, false), StandardCharsets.UTF_8);
-                    Writer out = new BufferedWriter(new OutputStreamWriter(
-                            new FileOutputStream(newFile), StandardCharsets.UTF_8));
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                outStream.println("READY");
-                // Otherwise, let them choose a new filename if they want
+                readyToReceive = true;
             } else {
                 System.out.print("Would you like to save under a different name? [y/n] ");
                 if (keyboard.nextLine().toLowerCase().equals("y")) {
                     System.out.print("Enter the new filename: ");
                     newFile = new File(System.getProperty("user.dir"), keyboard.nextLine());
                     if (!newFile.exists()) {
-                        try {
-                            // fileOut = new OutputStreamWriter(new FileOutputStream(newFile, false), StandardCharsets.UTF_8);
-                            Writer out = new BufferedWriter(new OutputStreamWriter(
-                                    new FileOutputStream(newFile), StandardCharsets.UTF_8));
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
+                        readyToReceive = true;
                         System.out.println("Filename change successful. Preparing to download");
-                        outStream.println("READY");
                     } else {
                         System.out.println("You chose another name that exists... Pathetic. Download aborted.");
-                        outStream.println("STOP");
-                        downloadCancelled = true;
                     }
                 } else {
                     System.out.println("Download Aborted");
-                    outStream.println("STOP");
-                    downloadCancelled = true;
                 }
             }
         } else {
-            outStream.println("READY");
+            readyToReceive = true;
         }
 
-        if (!downloadCancelled) {
+        if (readyToReceive) {
+
+            outStream.println("READY");
+
             try {
-                fileSize = Integer.parseInt(inStream.readLine());
-                System.out.println("The new file " + newFile.getName() +
-                        " is " + fileSize + " bytes.");
-                //(double) fileSize / (double) 1000000
-                dataIn = new DataInputStream(sock.getInputStream());
-
-
-                // TODO: might have to keep count of size and decrement. Not sure
-                System.out.println("going to read input");
-                byte[] data = new byte[8096];
-
-                // dataIn.read(data);
-                //
-                // System.out.println(data);
-                //
-                // fileOut.write(data);
-
-                int bytesRemaining = fileSize;
-                int bytesRead;
-
-                while (bytesRemaining > 0) {
-                    bytesRead = dataIn.read(data);
-                    String s = new String(data);
-                    char[] chars =  s.toCharArray();
-                    fileOut.write(chars, 0, bytesRead);
-                    // fileOut.write()
-                    bytesRemaining -= bytesRead;
-                    System.out.println("Bytes Remaining: " + bytesRemaining);
-                }
-                System.out.println("Done writing");
-            } catch (IOException e) {
-                System.out.println("ERROR: Writing error");
+                fileWriter = new BufferedOutputStream(new FileOutputStream(newFile));
+            } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+
+            try {
+                bytesIn = sock.getInputStream();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            int bytesRead;
+
+            try {
+
+                int bytesRemaining = Integer.parseInt(inStream.readLine());
+
+                System.out.println("The file will be " + bytesRemaining + " bytes");
+
+                while (bytesRemaining > 0) {
+
+                    bytesRead = bytesIn.read(buffer, 0, buffer.length);
+                    if (bytesRead != -1) {
+                        bytesRemaining -= bytesRead;
+                        fileWriter.write(buffer, 0, bytesRead);
+                    }
+                }
+                fileWriter.flush();
+                fileWriter.close();
+
+                System.out.println(newFile.getName() + "successfully created.");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            System.out.println("Sending STOP to server");
+            outStream.println("STOP");
         }
-
-
     }
 
     private static String changeDirectory(String rawInput,
@@ -338,8 +319,9 @@ public class Client {
         string.append("\tNavigate to the specified directory.\n" +
                 "\tType .. to move up a directory\n\n");
         string.append("DOWNLOAD <filename>\n");
-        string.append("\tNavigate to the specified directory.\n" +
-                "\tType .. to move up a directory\n\n");
+        string.append("\tDownload the specified file to the program's execution directory\n" +
+                "\tIf the file exists you will be prompted to overwrite it, rename it,\n" +
+                " or cancel the download\n\n");
 
         System.out.println(string);
     }

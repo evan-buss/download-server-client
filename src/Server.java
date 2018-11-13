@@ -1,7 +1,6 @@
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.file.Files;
 
 public class Server {
     public static void main(String args[]) {
@@ -46,8 +45,6 @@ public class Server {
         // infinite loop waiting for new connections
         while (true) {
 
-            // TODO: may change this to have a user command to exit instead
-            // of looping forever
             try {
                 // Accept any incoming connections
                 client = server.accept();
@@ -174,7 +171,7 @@ class ClientConnection implements Runnable {
                             currentDirectory, outStream);
 
                     // There was an error navigating to new directory
-                    if (!output.equals("DDNE")) {
+                    if (!output.equals("DDNE") && !output.equals("PD")) {
                         currentDirectory = new File(output);
                     }
                     outStream.println(output);
@@ -203,71 +200,56 @@ class ClientConnection implements Runnable {
     }
 
     private void sendFile(String fileName, File directory,
-                              PrintWriter outStream, BufferedReader inStream) {
+                          PrintWriter outStream, BufferedReader inStream) {
 
-        InputStream fileIn = null;
-        DataOutputStream dataOut = null;
-        String clientResponse = "";
-        /*
-        Logic: You have to open a local filestream on the file
-                read from the filestream to an outputstream connected to the socket.
-         */
 
-        // Create a new file with the given filename
-        File file = new File(directory, fileName)   ;
+        BufferedInputStream fileReader = null;
+        OutputStream bytesOut;
+        int bytesSent;
+        byte[] buffer = new byte[1000000]; // Can transfer 1mb at a time
 
+        // Set file to the filename the user gives
+        File file = new File(directory, fileName);
+
+        // Make sure that the user gave a filename that exists, is a file not a
+        //  directory, and that the server has read permissions on
         if (file.isFile() && file.exists() && file.canRead()) {
             try {
-                fileIn = new FileInputStream(file);
+                fileReader = new BufferedInputStream(new FileInputStream(file));
+
             } catch (FileNotFoundException e) {
-                System.out.println("File Not Found.");
                 e.printStackTrace();
             }
 
-            try {
-                dataOut = new DataOutputStream(client.getOutputStream());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            // Tell the client that the server is ready to send the file
             outStream.println("READY");
 
+
             try {
-                 clientResponse = inStream.readLine();
+                if (inStream.readLine().equals("READY")) {
+                    bytesOut = client.getOutputStream();
+
+                    // Send the file length before sending the file
+                    outStream.println(file.length());
+
+                    while ((bytesSent = fileReader.read(buffer, 0, buffer.length)) != -1) {
+                        bytesOut.write(buffer, 0, bytesSent);
+                    }
+
+                    System.out.println("Done sending file");
+                    fileReader.close();
+                    bytesOut.flush();
+
+                } else {
+                    System.out.println("Client has aborted the download");
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            if (clientResponse.equals("READY")) {
-            //    start downloading
-                System.out.println("Client is ready for the file.");
-                // Send client the length of the file
-                outStream.println(file.length());
-
-                byte[] data = new byte[8096];
-                try {
-                    System.out.println("sending the file");
-                    int bytesRemaining = (int) file.length();
-                    int bytesRead;
-                    while (bytesRemaining > 0) {
-                        bytesRead = fileIn.read(data);
-                        bytesRemaining -= bytesRead;
-                        System.out.println("Bytes Remaining: " + bytesRemaining);
-                        dataOut.write(data, 0, bytesRead);
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
-            } else {
-                System.out.println("Client has aborted the file download.");
-            }
-
-
         } else {
             outStream.println("FNF");
         }
+
     }
 
     private String changeDirectory(String clientInput,

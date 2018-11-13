@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8134502d-fe58-47c5-a3d1-11204ceb6125" name="Default Changelist" comment="">
+    <list default="true" id="8134502d-fe58-47c5-a3d1-11204ceb6125" name="Default Changelist" comment="Download seems to be working completely now. &#10;I have tried up to a 500mb file and it transferred / downloaded very fast.&#10;Seems to be good for now.&#10;Just need to clean up the code and document it.&#10;May also add some additional features as we go.&#10;Also need to think about how I want the logging to work/look.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TODO" beforeDir="false" afterPath="$PROJECT_DIR$/TODO" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/info.pdf" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server.java" afterDir="false" />
     </list>
@@ -94,79 +93,111 @@
     <session id="339671396">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="TODO" value="148" />
-          <entry key="java" value="6219" />
+          <entry key="TODO" value="291" />
+          <entry key="java" value="10040" />
+          <entry key="txt" value="1001" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="6219" />
-          <entry key="PLAIN_TEXT" value="148" />
+          <entry key="JAVA" value="10040" />
+          <entry key="PLAIN_TEXT" value="1292" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.spring.boot.mvc.usages" />
       <usages-collector id="statistics.js.language.service.starts" />
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="5" />
+          <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.16" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.open.time.20" value="1" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
       <usages-collector id="statistics.spring.boot.run.usages" />
       <usages-collector id="statistics.file.types.open">
         <counts>
+          <entry key="JAVA" value="4" />
           <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="TODO" value="1" />
+          <entry key="java" value="4" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Client.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="70">
-              <caret line="183" column="5" lean-forward="true" selection-start-line="183" selection-start-column="5" selection-end-line="183" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TODO">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="54" selection-start-line="9" selection-start-column="54" selection-end-line="9" selection-end-column="54" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Server.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="438">
-              <caret line="255" column="21" lean-forward="true" selection-start-line="255" selection-start-column="21" selection-end-line="255" selection-end-column="21" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2874#2875#0" expanded="true" />
-                <element signature="e#2910#2911#0" expanded="true" />
-                <element signature="e#3086#3087#0" expanded="true" />
-                <element signature="e#3117#3118#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/Client.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="189">
+                  <caret line="22" column="12" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
+                  <folding>
+                    <element signature="e#0#12271#0" expanded="true" />
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/TODO">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="289">
+                  <caret line="17" column="26" lean-forward="true" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/Server.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="189">
+                  <caret line="234" column="51" selection-start-line="234" selection-start-column="51" selection-end-line="234" selection-end-column="51" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#2874#2875#0" expanded="true" />
+                    <element signature="e#2910#2911#0" expanded="true" />
+                    <element signature="e#3086#3087#0" expanded="true" />
+                    <element signature="e#3117#3118#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/Server.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-4063">
+                  <caret line="4" column="21" lean-forward="true" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#2874#2875#0" expanded="true" />
+                    <element signature="e#2910#2911#0" expanded="true" />
+                    <element signature="e#3086#3087#0" expanded="true" />
+                    <element signature="e#3117#3118#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -183,6 +214,8 @@
       <find>to</find>
       <find>toUpper</find>
       <find>therea</find>
+      <find>client.</find>
+      <find>instream</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -207,10 +240,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="173" />
-    <option name="y" value="87" />
-    <option name="width" value="1400" />
-    <option name="height" value="880" />
+    <option name="width" value="1920" />
+    <option name="height" value="1054" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -243,11 +274,11 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="todo&#9;FILE&#9;file:///home/evan/Documents/download-server-client/TODO&#10;commit&#9;ACTION&#9;CheckinProject" />
+    <property name="SearchEverywhereHistoryKey" value="wrap&#9;ACTION&#9;EditorToggleUseSoftWraps&#10;info&#9;FILE&#9;file:///home/evan/Documents/download-server-client/info.pdf&#10;todo&#9;FILE&#9;file:///home/evan/Documents/download-server-client/TODO&#10;commit&#9;ACTION&#9;CheckinProject" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541974995102" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542080258013" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/server.java" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RunDashboard">
@@ -315,7 +346,11 @@
       <workItem from="1541871378568" duration="56000" />
       <workItem from="1541871459380" duration="11354000" />
       <workItem from="1541976692848" duration="1962000" />
-      <workItem from="1541981719346" duration="15130000" />
+      <workItem from="1541981719346" duration="15294000" />
+      <workItem from="1542037995853" duration="1224000" />
+      <workItem from="1542041624578" duration="1251000" />
+      <workItem from="1542054615969" duration="4261000" />
+      <workItem from="1542072710001" duration="7031000" />
     </task>
     <task id="LOCAL-00001" summary="Small phase 1 updates">
       <created>1541885519085</created>
@@ -338,25 +373,31 @@
       <option name="project" value="LOCAL" />
       <updated>1541974386069</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Finished all of the download syntax for server and client except for the actual download part. Files are able to be transferred with some caveats... The new file doesn't seem to have a character encoding (not sure wtf that is RN) so programs do not display them properly. Also, on large file transfers I am getting a connection error where the client seems to randomly disconnect and the download transfer fails. On the other files it seems like all the data is there but the encoding is fucked or something.">
+      <created>1541997121804</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1541997121804</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63260000" />
+    <option name="totallyTimeSpent" value="77191000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1050" extended-state="6" />
+    <frame x="-4" y="0" width="1928" height="1054" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11686233" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18783352" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Inspection Results" weight="0.32899022" />
-      <window_info anchor="bottom" id="Messages" order="0" weight="0.32790446" />
+      <window_info active="true" anchor="bottom" id="Messages" order="0" visible="true" weight="0.32790446" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
@@ -367,7 +408,8 @@
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32790446" />
-      <window_info active="true" anchor="bottom" id="Run" order="11" visible="true" weight="0.23561347" />
+      <window_info anchor="bottom" id="Run" order="11" weight="0.8469055" />
+      <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.32899022" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -389,7 +431,9 @@
     <MESSAGE value="Small phase 1 updates" />
     <MESSAGE value="Finished the implementations of PWD, DIR, and the .. part of the CD command. Still need documentation. Updated README to match new commands." />
     <MESSAGE value="Finished full implementation of the CD command. Accepts multi-word arguments as well. Also responds with appropriate errors if the directory does not exist or or the server does not have read permissions to the directory." />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished full implementation of the CD command. Accepts multi-word arguments as well. Also responds with appropriate errors if the directory does not exist or or the server does not have read permissions to the directory." />
+    <MESSAGE value="Finished all of the download syntax for server and client except for the actual download part. Files are able to be transferred with some caveats... The new file doesn't seem to have a character encoding (not sure wtf that is RN) so programs do not display them properly. Also, on large file transfers I am getting a connection error where the client seems to randomly disconnect and the download transfer fails. On the other files it seems like all the data is there but the encoding is fucked or something." />
+    <MESSAGE value="Download seems to be working completely now. &#10;I have tried up to a 500mb file and it transferred / downloaded very fast.&#10;Seems to be good for now.&#10;Just need to clean up the code and document it.&#10;May also add some additional features as we go.&#10;Also need to think about how I want the logging to work/look." />
+    <option name="LAST_COMMIT_MESSAGE" value="Download seems to be working completely now. &#10;I have tried up to a 500mb file and it transferred / downloaded very fast.&#10;Seems to be good for now.&#10;Just need to clean up the code and document it.&#10;May also add some additional features as we go.&#10;Also need to think about how I want the logging to work/look." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Server/Server.java" />
@@ -403,17 +447,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/Downloads/client.java" />
+    <entry file="file://$USER_HOME$/Downloads/server.java" />
     <entry file="file://$PROJECT_DIR$/TODO">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="54" selection-start-line="9" selection-start-column="54" selection-end-line="9" selection-end-column="54" />
+        <state relative-caret-position="289">
+          <caret line="17" column="26" lean-forward="true" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Server.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
-          <caret line="255" column="21" lean-forward="true" selection-start-line="255" selection-start-column="21" selection-end-line="255" selection-end-column="21" />
+        <state relative-caret-position="189">
+          <caret line="234" column="51" selection-start-line="234" selection-start-column="51" selection-end-line="234" selection-end-column="51" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2874#2875#0" expanded="true" />
@@ -426,9 +472,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Client.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
-          <caret line="183" column="5" lean-forward="true" selection-start-line="183" selection-start-column="5" selection-end-line="183" selection-end-column="5" />
+        <state relative-caret-position="189">
+          <caret line="22" column="12" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
           <folding>
+            <element signature="e#0#12271#0" expanded="true" />
             <element signature="imports" expanded="true" />
           </folding>
         </state>
