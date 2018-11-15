@@ -7,15 +7,17 @@ filename
     - Indicator / Progress Bar
 
 
-- Look into using scanner to parse shit instead of splitting then substringing.
+- Make the dir output cleaner
+    - Just space separate the items and '/' separate the lines
+    - The client should handle parsing them nicely and the output
+    - This also reduces transfer data size
 
 - Create logging classes for both the server and the client
 
 - Make sure I close appropriate streams when necessary
+    - All streams should be closed somewhere.
 
 Sample Logging Output
-
-The download server is working and the client is writing the files !! but for some reason the client doesn't ever stop trying to read. Not sure how to signal that it's done.
 
 Client
 
