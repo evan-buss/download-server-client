@@ -100,6 +100,7 @@ success. On failure, it sends back the appropriate error code:
 - On success, the client updates the current directory indicator to match the
  new server directory.
 
+TODO: Update readme with new commands and talk about implementation decisions
 
 ## Issues
 

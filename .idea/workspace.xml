@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8134502d-fe58-47c5-a3d1-11204ceb6125" name="Default Changelist" comment="">
+    <list default="true" id="8134502d-fe58-47c5-a3d1-11204ceb6125" name="Default Changelist" comment="Fixed code problems that were shown with IDEA code analysis.">
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/evan.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server.java" afterDir="false" />
     </list>
@@ -93,14 +95,16 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="TODO" value="551" />
-          <entry key="java" value="21783" />
-          <entry key="txt" value="1212" />
+          <entry key="java" value="22364" />
+          <entry key="md" value="99" />
+          <entry key="txt" value="1365" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="21783" />
-          <entry key="PLAIN_TEXT" value="1763" />
+          <entry key="JAVA" value="22364" />
+          <entry key="Markdown" value="99" />
+          <entry key="PLAIN_TEXT" value="1916" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.spring.boot.mvc.usages" />
@@ -128,6 +132,7 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="JAVA" value="4" />
+          <entry key="Markdown" value="1" />
           <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
@@ -135,6 +140,7 @@
         <counts>
           <entry key="TODO" value="1" />
           <entry key="java" value="4" />
+          <entry key="md" value="1" />
         </counts>
       </usages-collector>
     </session>
@@ -153,8 +159,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="188" column="65" lean-forward="true" selection-start-line="188" selection-start-column="65" selection-end-line="188" selection-end-column="65" />
+            <state relative-caret-position="178">
+              <caret line="293" column="77" selection-start-line="293" selection-start-column="77" selection-end-line="293" selection-end-column="77" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -163,10 +169,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="1503">
+                <caret line="102" column="77" selection-start-line="102" selection-start-column="77" selection-end-line="102" selection-end-column="77" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="216" column="51" lean-forward="true" selection-start-line="216" selection-start-column="51" selection-end-line="216" selection-end-column="51" />
+            <state relative-caret-position="398">
+              <caret line="365" lean-forward="true" selection-start-line="365" selection-end-line="365" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -195,6 +213,7 @@
       <find>instream</find>
       <find>successfully create</find>
       <find>successfully</find>
+      <find>logic</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -205,9 +224,9 @@
       <list>
         <option value="$PROJECT_DIR$/src/Server/Server.java" />
         <option value="$PROJECT_DIR$/src/Client/Client.java" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/TODO" />
         <option value="$PROJECT_DIR$/src/Server.java" />
+        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/Client.java" />
       </list>
     </option>
@@ -258,7 +277,7 @@
     <property name="SearchEverywhereHistoryKey" value="wrap&#9;ACTION&#9;EditorToggleUseSoftWraps&#10;info&#9;FILE&#9;file:///home/evan/Documents/download-server-client/info.pdf&#10;todo&#9;FILE&#9;file:///home/evan/Documents/download-server-client/TODO&#10;commit&#9;ACTION&#9;CheckinProject" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542335671482" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542336526764" />
     <property name="last_opened_file_path" value="$USER_HOME$/Downloads/server.java" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
@@ -339,7 +358,7 @@
       <workItem from="1542292671779" duration="3710000" />
       <workItem from="1542301436174" duration="1647000" />
       <workItem from="1542320684778" duration="3799000" />
-      <workItem from="1542330724449" duration="4875000" />
+      <workItem from="1542330724449" duration="5734000" />
     </task>
     <task id="LOCAL-00001" summary="Small phase 1 updates">
       <created>1541885519085</created>
@@ -390,17 +409,33 @@
       <option name="project" value="LOCAL" />
       <updated>1542257832912</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Mostly documentation of the server program.&#10;Restructured some of the code.">
+      <created>1542335796280</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1542335796280</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="102401000" />
+    <option name="totallyTimeSpent" value="103260000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1050" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12860192" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12860192" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -413,13 +448,13 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info active="true" anchor="bottom" id="TODO" order="6" visible="true" weight="0.32899022" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32790446" />
       <window_info anchor="bottom" id="Run" order="11" weight="0.8469055" />
-      <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.3286219" />
+      <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.32790446" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -444,20 +479,11 @@
     <MESSAGE value="Finished all of the download syntax for server and client except for the actual download part. Files are able to be transferred with some caveats... The new file doesn't seem to have a character encoding (not sure wtf that is RN) so programs do not display them properly. Also, on large file transfers I am getting a connection error where the client seems to randomly disconnect and the download transfer fails. On the other files it seems like all the data is there but the encoding is fucked or something." />
     <MESSAGE value="Download seems to be working completely now. &#10;I have tried up to a 500mb file and it transferred / downloaded very fast.&#10;Seems to be good for now.&#10;Just need to clean up the code and document it.&#10;May also add some additional features as we go.&#10;Also need to think about how I want the logging to work/look." />
     <MESSAGE value="Starting restructuring and cleaning up existing code.&#10;Documented all functions.&#10;Still playing around with download outputs and specifics." />
-    <option name="LAST_COMMIT_MESSAGE" value="Starting restructuring and cleaning up existing code.&#10;Documented all functions.&#10;Still playing around with download outputs and specifics." />
+    <MESSAGE value="Mostly documentation of the server program.&#10;Restructured some of the code." />
+    <option name="LAST_COMMIT_MESSAGE" value="Mostly documentation of the server program.&#10;Restructured some of the code." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Server/Server.java" />
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="849">
-            <caret line="93" column="27" selection-start-line="93" selection-start-column="27" selection-end-line="93" selection-end-column="27" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Downloads/client.java" />
     <entry file="file://$USER_HOME$/Downloads/server.java" />
     <entry file="file://$PROJECT_DIR$/TODO">
@@ -469,18 +495,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Server.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="216" column="51" lean-forward="true" selection-start-line="216" selection-start-column="51" selection-end-line="216" selection-end-column="51" />
+        <state relative-caret-position="398">
+          <caret line="365" lean-forward="true" selection-start-line="365" selection-end-line="365" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="1503">
+            <caret line="102" column="77" selection-start-line="102" selection-start-column="77" selection-end-line="102" selection-end-column="77" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Client.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="188" column="65" lean-forward="true" selection-start-line="188" selection-start-column="65" selection-end-line="188" selection-end-column="65" />
+        <state relative-caret-position="178">
+          <caret line="293" column="77" selection-start-line="293" selection-start-column="77" selection-end-line="293" selection-end-column="77" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

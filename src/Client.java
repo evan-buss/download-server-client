@@ -20,7 +20,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-public class Client {
+class Client {
 
   private static Socket sock = null;
 
@@ -206,13 +206,11 @@ public class Client {
 
       try {
         String response = inStream.readLine();
-        // FIXME: Think of better logic loop
-        if (response.equals("READY")) {
-          // System.out.println("Server is READY");
-        } else if (response.equals("FNF")) {
+        if (response.equals("FNF")) {
           System.out.println("File could not be found on the server.");
           return;
         }
+      //  Otherwise response is "READY" and we just continue as normal
       } catch (IOException e) {
         System.err.println("DOWNLOAD error. Could not get response from server");
         e.printStackTrace();
@@ -293,24 +291,30 @@ public class Client {
         System.out.println("\tSize: " + bytesRemaining + " bytes");
         System.out.println("\tLocation: " + newFile.getPath());
 
-        // FIXME: Figure out a way to have a timer, or a nicely formatted time
+        // TODO: Implement a timer or print the download time or progress bar
         // System.out.println(Instant.now());
 
-        // Loop until all bytes of the incoming file have been successfully read
-        while (bytesRemaining > 0) {
+        // Make sure that fileWriter and bytesIn streams have been initialized
+        if (fileWriter != null && bytesIn != null) {
+          // Loop until all bytes of the incoming file have been successfully read
+          while (bytesRemaining > 0) {
 
-          //FIXME: Not sure what this null pointer exception error means
-          int bytesRead = bytesIn.read(buffer, 0, buffer.length);
-          if (bytesRead != -1) {
-            bytesRemaining -= bytesRead; // Decrement bytesRemaining counter
-            fileWriter.write(buffer, 0, bytesRead); // Write new data to file
+            //FIXME: Not sure what this null pointer exception error means
+            int bytesRead = bytesIn.read(buffer, 0, buffer.length);
+            if (bytesRead != -1) {
+              bytesRemaining -= bytesRead; // Decrement bytesRemaining counter
+              fileWriter.write(buffer, 0, bytesRead); // Write new data to file
+            }
           }
-        }
 
-        //FIXME: Not sure if I need to flush if I am closing right after
-        // Flush and close the file output stream when finished
-        fileWriter.flush();
-        fileWriter.close();
+          //FIXME: Not sure if I need to flush if I am closing right after
+          // Flush and close the file output stream when finished
+          fileWriter.flush();
+          fileWriter.close();
+
+        } else {
+          System.err.println("Could not download because streams are null...");
+        }
 
         // Display success message.
         // System.out.println(Instant.now());
@@ -418,9 +422,10 @@ public class Client {
     string.append("\tNavigate to the specified directory.\n" +
             "\tType .. to move up a directory\n\n");
     string.append("DOWNLOAD <filename>\n");
-    string.append("\tDownloads the specified file to " + System.getProperty("user.dir") + "\n" +
-            "\tIf the file exists you will be prompted to overwrite, rename, or cancel\n" +
-            "\tthe download\n");
+    string.append("\tDownloads the specified file to ");
+    string.append(System.getProperty("user.dir"));
+    string.append("\n\tIf the file exists you will be prompted to overwrite, " +
+            "rename, or cancel\n\tthe download\n");
 
     System.out.println(string);
   }

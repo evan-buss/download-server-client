@@ -22,7 +22,7 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server {
+class Server {
   public static void main(String args[]) {
 
     ServerSocket server = null;
@@ -70,10 +70,11 @@ public class Server {
   private static void waitForConnection(ServerSocket server) {
 
     Socket client = null;
-    boolean run = true;
 
-    // infinite loop waiting for new connections in main thread
-    while (run) {
+    // infinite loop waiting for new connections in main thread'
+    // Close server daemon with Ctrl-C
+    //noinspection InfiniteLoopStatement
+    while (true) {
       try {
         // Accept any incoming connections
         client = server.accept();
@@ -351,14 +352,17 @@ class ClientConnection implements Runnable {
           // Send the file length before sending the file
           outStream.println(file.length());
 
-          // Keep reading from file and sending to client until all data is sent or error
-          while ((bytesSent = fileReader.read(buffer, 0, buffer.length)) != -1) {
-            bytesOut.write(buffer, 0, bytesSent);
-          }
+          // Make sure fileReader stream has been initialized before reading
+          if (fileReader != null) {
+            // Keep reading from file and sending to client until all data is sent or error
+            while ((bytesSent = fileReader.read(buffer, 0, buffer.length)) != -1) {
+              bytesOut.write(buffer, 0, bytesSent);
+            }
 
-          System.out.println(file.getName() + " sent to client successfully!");
-          fileReader.close(); // Close the file input stream
-          bytesOut.flush();   // Flush the data output stream
+            System.out.println(file.getName() + " sent to client successfully!");
+            fileReader.close(); // Close the file input stream
+            bytesOut.flush();   // Flush the data output stream
+          }
 
         } else {
           System.out.println("Client has aborted the download");
