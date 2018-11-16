@@ -190,8 +190,10 @@ public class Client {
    * @param outStream TCP socket stream to the server
    * @param inStream  TCP socket stream from the server
    */
-  private static void receiveFile(String rawInput, Scanner keyboard,
-                                  PrintWriter outStream, BufferedReader inStream) {
+  private static void receiveFile(String rawInput,
+                                  Scanner keyboard,
+                                  PrintWriter outStream,
+                                  BufferedReader inStream) {
 
     String fileName;
 
@@ -381,15 +383,18 @@ public class Client {
 
     // Create a new scanner to get tokens between "#" character.
     Scanner parser = new Scanner(str).useDelimiter("#");
-    System.out.printf("Type      Size(b)       Name\n");
-    System.out.printf("----      -------       ----\n");
+    System.out.println("Type      Size(b)       Name\n");
+    System.out.println("----      -------       ----\n");
 
-    // Traverse entire string, printing out the attributes in groups of three
-    while (parser.hasNext()) {
-      System.out.printf("%-6s    %-10s    %s%n",
-              parser.next(), parser.next(), parser.next());
+    if (str.equals("EMPTY")) {
+      System.out.println("Empty directory.\n");
+    } else {
+      // Traverse entire string, printing out the attributes in groups of three
+      while (parser.hasNext()) {
+        System.out.printf("%-6s    %-10s    %s%n",
+                parser.next(), parser.next(), parser.next());
+      }
     }
-
   }
 
   /**
@@ -413,9 +418,9 @@ public class Client {
     string.append("\tNavigate to the specified directory.\n" +
             "\tType .. to move up a directory\n\n");
     string.append("DOWNLOAD <filename>\n");
-    string.append("\tDownload the specified file to the program's execution directory\n" +
-            "\tIf the file exists you will be prompted to overwrite it, rename it,\n" +
-            " or cancel the download\n\n");
+    string.append("\tDownloads the specified file to " + System.getProperty("user.dir") + "\n" +
+            "\tIf the file exists you will be prompted to overwrite, rename, or cancel\n" +
+            "\tthe download\n");
 
     System.out.println(string);
   }

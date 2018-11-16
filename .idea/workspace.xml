@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8134502d-fe58-47c5-a3d1-11204ceb6125" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TODO" beforeDir="false" afterPath="$PROJECT_DIR$/TODO" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server.java" afterDir="false" />
     </list>
@@ -94,30 +93,34 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="TODO" value="551" />
-          <entry key="java" value="17330" />
-          <entry key="txt" value="1001" />
+          <entry key="java" value="21783" />
+          <entry key="txt" value="1212" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="17330" />
-          <entry key="PLAIN_TEXT" value="1552" />
+          <entry key="JAVA" value="21783" />
+          <entry key="PLAIN_TEXT" value="1763" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.spring.boot.mvc.usages" />
       <usages-collector id="statistics.js.language.service.starts" />
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="8" />
+          <entry key="project.closed" value="12" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.16" value="1" />
+          <entry key="project.open.time.18" value="1" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.20" value="1" />
           <entry key="project.open.time.21" value="1" />
+          <entry key="project.open.time.22" value="1" />
+          <entry key="project.open.time.29" value="1" />
+          <entry key="project.open.time.31" value="1" />
           <entry key="project.open.time.36" value="1" />
           <entry key="project.open.time.37" value="1" />
           <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="8" />
+          <entry key="project.opened" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -141,7 +144,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TODO">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
+            <state relative-caret-position="4">
               <caret line="1" column="76" selection-start-line="1" selection-end-line="2" />
             </state>
           </provider>
@@ -150,10 +153,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="20" selection-start-line="20" selection-end-line="20" />
+            <state relative-caret-position="299">
+              <caret line="188" column="65" lean-forward="true" selection-start-line="188" selection-start-column="65" selection-end-line="188" selection-end-column="65" />
               <folding>
-                <element signature="method#receiveFile#0;class#Client#0" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -162,8 +165,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2550">
-              <caret line="172" column="56" selection-start-line="172" selection-start-column="56" selection-end-line="172" selection-end-column="56" />
+            <state relative-caret-position="213">
+              <caret line="216" column="51" lean-forward="true" selection-start-line="216" selection-start-column="51" selection-end-line="216" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -216,17 +219,16 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="644" />
-    <option name="width" value="1272" />
-    <option name="height" value="696" />
+    <option name="x" value="186" />
+    <option name="y" value="150" />
+    <option name="width" value="1252" />
+    <option name="height" value="694" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -248,15 +250,18 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="wrap&#9;ACTION&#9;EditorToggleUseSoftWraps&#10;info&#9;FILE&#9;file:///home/evan/Documents/download-server-client/info.pdf&#10;todo&#9;FILE&#9;file:///home/evan/Documents/download-server-client/TODO&#10;commit&#9;ACTION&#9;CheckinProject" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542257734564" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542335671482" />
     <property name="last_opened_file_path" value="$USER_HOME$/Downloads/server.java" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -330,7 +335,11 @@
       <workItem from="1542072710001" duration="7280000" />
       <workItem from="1542163993881" duration="1066000" />
       <workItem from="1542248098834" duration="1763000" />
-      <workItem from="1542249905762" duration="7815000" />
+      <workItem from="1542249905762" duration="8101000" />
+      <workItem from="1542292671779" duration="3710000" />
+      <workItem from="1542301436174" duration="1647000" />
+      <workItem from="1542320684778" duration="3799000" />
+      <workItem from="1542330724449" duration="4875000" />
     </task>
     <task id="LOCAL-00001" summary="Small phase 1 updates">
       <created>1541885519085</created>
@@ -367,17 +376,31 @@
       <option name="project" value="LOCAL" />
       <updated>1542080266573</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Starting restructuring and cleaning up existing code.&#10;Documented all functions.&#10;Still playing around with download outputs and specifics.">
+      <created>1542257800449</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1542257800449</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Starting restructuring and cleaning up existing code.&#10;Documented all functions.&#10;Still playing around with download outputs and specifics.">
+      <created>1542257832912</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1542257832912</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88084000" />
+    <option name="totallyTimeSpent" value="102401000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1050" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12219851" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12860192" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -396,7 +419,7 @@
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32790446" />
       <window_info anchor="bottom" id="Run" order="11" weight="0.8469055" />
-      <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.32899022" />
+      <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.3286219" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -420,7 +443,8 @@
     <MESSAGE value="Finished full implementation of the CD command. Accepts multi-word arguments as well. Also responds with appropriate errors if the directory does not exist or or the server does not have read permissions to the directory." />
     <MESSAGE value="Finished all of the download syntax for server and client except for the actual download part. Files are able to be transferred with some caveats... The new file doesn't seem to have a character encoding (not sure wtf that is RN) so programs do not display them properly. Also, on large file transfers I am getting a connection error where the client seems to randomly disconnect and the download transfer fails. On the other files it seems like all the data is there but the encoding is fucked or something." />
     <MESSAGE value="Download seems to be working completely now. &#10;I have tried up to a 500mb file and it transferred / downloaded very fast.&#10;Seems to be good for now.&#10;Just need to clean up the code and document it.&#10;May also add some additional features as we go.&#10;Also need to think about how I want the logging to work/look." />
-    <option name="LAST_COMMIT_MESSAGE" value="Download seems to be working completely now. &#10;I have tried up to a 500mb file and it transferred / downloaded very fast.&#10;Seems to be good for now.&#10;Just need to clean up the code and document it.&#10;May also add some additional features as we go.&#10;Also need to think about how I want the logging to work/look." />
+    <MESSAGE value="Starting restructuring and cleaning up existing code.&#10;Documented all functions.&#10;Still playing around with download outputs and specifics." />
+    <option name="LAST_COMMIT_MESSAGE" value="Starting restructuring and cleaning up existing code.&#10;Documented all functions.&#10;Still playing around with download outputs and specifics." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Server/Server.java" />
@@ -438,15 +462,15 @@
     <entry file="file://$USER_HOME$/Downloads/server.java" />
     <entry file="file://$PROJECT_DIR$/TODO">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
+        <state relative-caret-position="4">
           <caret line="1" column="76" selection-start-line="1" selection-end-line="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Server.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2550">
-          <caret line="172" column="56" selection-start-line="172" selection-start-column="56" selection-end-line="172" selection-end-column="56" />
+        <state relative-caret-position="213">
+          <caret line="216" column="51" lean-forward="true" selection-start-line="216" selection-start-column="51" selection-end-line="216" selection-end-column="51" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -455,10 +479,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Client.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        <state relative-caret-position="299">
+          <caret line="188" column="65" lean-forward="true" selection-start-line="188" selection-start-column="65" selection-end-line="188" selection-end-column="65" />
           <folding>
-            <element signature="method#receiveFile#0;class#Client#0" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -29,7 +29,7 @@ public class Server {
 
     try {
       if (args.length == 0) {
-        // Create ServerSocket on default port 50001
+        // No port specified, create ServerSocket and bind to default port 50001
         server = new ServerSocket(50001);
       } else if (args.length == 1) {
         // Create ServerSocket on specified port
@@ -48,6 +48,15 @@ public class Server {
 
     // Server is bound to a port, wait for connections in a loop
     waitForConnection(server);
+
+    System.out.println("Exiting Server...");
+    try {
+      server.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    System.exit(0);
   }
 
   /**
@@ -61,38 +70,39 @@ public class Server {
   private static void waitForConnection(ServerSocket server) {
 
     Socket client = null;
+    boolean run = true;
 
-    // infinite loop waiting for new connections
-    while (true) {
-
+    // infinite loop waiting for new connections in main thread
+    while (run) {
       try {
         // Accept any incoming connections
         client = server.accept();
       } catch (IOException ex) {
-        System.err.println("Error Connecting with Client");
+        System.err.println("ServerSocket: Error Connecting with Client");
         ex.printStackTrace();
       }
 
       //    Only execute if client has actually connected (!= null)
       if (client != null) {
-        // Create a new thread and start it passing in the client socket
+        // Create a new thread and pass it the client connection socket
         // connection
         Thread t = new Thread(new ClientConnection(client));
         t.start();
       }
     }
+
   }
 }
 
 /**
- * ClientConnection class is responsible for handling all client connections and
+ * ClientConnection class is responsible for handling individual connections and
  * sending and receiving data from client to server and vice versa. Implements
  * the runnable interface so that each instance can be executed as a separate
  * thread.
  */
 class ClientConnection implements Runnable {
 
-  private Socket client;
+  private final Socket client;
   private PrintWriter outStream;
   private BufferedReader inStream;
 
@@ -107,7 +117,7 @@ class ClientConnection implements Runnable {
 
   /**
    * Default method implemented by the Runnable interface. It gets called when a
-   * new instance of ClientConnection is created.
+   * new instance of ClientConnection is created. Starts clientHandler() function
    */
   public void run() {
     clientHandler();
@@ -123,8 +133,8 @@ class ClientConnection implements Runnable {
     boolean run = true;
     // Initialize the current directory file to the program's directory
     File currentDirectory = new File(System.getProperty("user.dir"));
-    String rawInput = "";
-    String parsedCommand = "";
+    String rawInput = ""; // Full client request
+    String parsedCommand = ""; // Command portion of client request
 
     // Create server input and output streams
     try {
@@ -144,11 +154,12 @@ class ClientConnection implements Runnable {
     // Send client a message that they have successfully connected
     outStream.println("HELLO");
 
+    // Loop until client chooses to exit
     while (run) {
-
       try {
         rawInput = inStream.readLine();
 
+        // Get the command token (first word) from user input
         if (rawInput.split("\\s+").length >= 2) {
           parsedCommand = rawInput.split("\\s+")[0];
         } else {
@@ -165,12 +176,12 @@ class ClientConnection implements Runnable {
           System.out.println("Closing client's connection from "
                   + client.getInetAddress() + " on "
                   + Thread.currentThread().getName());
-          run = false;
+          run = false; // break out of loop
           break;
         case "PWD":
           System.out.println(Thread.currentThread().getName() +
                   ": PWD Received");
-          outStream.println(currentDirectory.getPath());
+          outStream.println(currentDirectory.getPath()); // send file's current path
           break;
         case "DIR":
           System.out.println("DIR Received");
@@ -182,27 +193,23 @@ class ClientConnection implements Runnable {
           System.out.println(Thread.currentThread().getName() +
                   ": CD Received");
 
-          //Create a new string excluding the "CD" part of the array
-          String targetDir = rawInput.substring(rawInput.indexOf(" ")).trim();
-          System.out.println("Attempting to navigate to : " + targetDir);
-
           // Attempt to change directory and store output in String
-          String output = changeDirectory(targetDir,
-                  currentDirectory, outStream);
+          String output = changeDirectory(rawInput, currentDirectory);
 
           // There was an error navigating to new directory
           if (!output.equals("DDNE") && !output.equals("PD")) {
             currentDirectory = new File(output);
           }
+
+          // Send the function response string regardless, the client will handle
+          // displaying the error codes to the user
           outStream.println(output);
+
           break;
         case "DOWNLOAD":
           System.out.println(Thread.currentThread().getName() +
                   ": Download Received");
-          // Create a new string excluding the command
-          String targetFile = rawInput.substring(rawInput.indexOf(" ")).trim();
-
-          sendFile(targetFile, currentDirectory, outStream, inStream);
+          sendFile(rawInput, currentDirectory, outStream, inStream);
           break;
         default:
           outStream.println("Client Request Error.");
@@ -219,94 +226,29 @@ class ClientConnection implements Runnable {
     }
   }
 
-  private void sendFile(String fileName, File directory,
-                        PrintWriter outStream, BufferedReader inStream) {
-
-
-    BufferedInputStream fileReader = null;
-    OutputStream bytesOut;
-    int bytesSent;
-    byte[] buffer = new byte[1000000]; // Can transfer 1mb at a time
-
-    // Set file to the filename the user gives
-    File file = new File(directory, fileName);
-
-    // Make sure that the user gave a filename that exists, is a file not a
-    //  directory, and that the server has read permissions on
-    if (file.isFile() && file.exists() && file.canRead()) {
-      try {
-        fileReader = new BufferedInputStream(new FileInputStream(file));
-
-      } catch (FileNotFoundException e) {
-        e.printStackTrace();
-      }
-
-      // Tell the client that the server is ready to send the file
-      outStream.println("READY");
-
-
-      try {
-        if (inStream.readLine().equals("READY")) {
-          bytesOut = client.getOutputStream();
-
-          // Send the file length before sending the file
-          outStream.println(file.length());
-
-          while ((bytesSent = fileReader.read(buffer, 0, buffer.length)) != -1) {
-            bytesOut.write(buffer, 0, bytesSent);
-          }
-
-          System.out.println("Done sending file");
-          fileReader.close();
-          bytesOut.flush();
-
-        } else {
-          System.out.println("Client has aborted the download");
-        }
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    } else {
-      outStream.println("FNF");
-    }
-
-  }
-
-  private String changeDirectory(String clientInput,
-                                 File currentDirectory,
-                                 PrintWriter outStream) {
-    File newFilePath;
-
-    //Go up a level
-    if (clientInput.equals("..")) {
-      newFilePath = new File(currentDirectory.getParent());
-    } else if (clientInput.contains(File.separator)) {
-      newFilePath = new File(clientInput);
-    } else {
-      newFilePath = new File(currentDirectory, clientInput);
-    }
-
-    if (newFilePath.exists() && newFilePath.isDirectory() && newFilePath.canRead()) {
-      return newFilePath.getAbsolutePath();
-    } else if (!newFilePath.canRead()) {
-      return "PD";
-    } else {
-      return "DDNE";
-    }
-  }
-
+  /**
+   * Display the contents of the clients current working directory.
+   * Separates the results by file and folder. Users can download files and enter
+   * folders.
+   *
+   * @param directory absolute path String to a file directory
+   * @return String delimited by "#" character between tokens. Each
+   * file/folder has 3 different attributes.
+   * Type: File or Folder
+   * Size: File or Folder Size in Bytes
+   * Name: File or Folder Name
+   * The client will be responsible for parsing the tokens and
+   * formatting the output.
+   */
   private String getDirectory(String directory) {
     File folder = new File(directory);
     File[] directoryListing = folder.listFiles();
     StringBuilder output = new StringBuilder();
 
-        /* Build a new string with files at the top and directories at the
-            bottom. Replace all newline characters with the '/' char because
-            linux and windows file names cannot contain it. This allows us to use
-            println(). Otherwise the multiple newlines would break the string
-            apart at the newline char when reading it with readLine() on the
-            client.
-        */
+    /* Build a new string with files at the top and directories at the
+       bottom. Delimit each entry with a "#" character. The client will
+       parse the tokens from the long string that the server sends.
+    */
     if (directoryListing != null) {
       for (File file : directoryListing) {
         if (file.isFile()) {
@@ -322,9 +264,112 @@ class ClientConnection implements Runnable {
           output.append("#");
         }
       }
+
+      // If length is 0, the folder was empty
+      if (output.length() == 0) {
+        output.append("EMPTY");
+      }
     }
 
     return output.toString();
+  }
+
+  /**
+   * Reads the client request and parses the new directory path given. Makes sure
+   * that the given path exists, is a directory, and the server has read permissions
+   * Return the path if success, otherwise return an error code.
+   *
+   * @param rawInput         the entire request string from the client
+   * @param currentDirectory the server's current working directory for the client
+   * @return Returns the new file's absolute path on success.
+   * Returns "PD" if user does not have read permissions
+   * Returns "DDNE" if the directory doesn't exist
+   */
+  private String changeDirectory(String rawInput,
+                                 File currentDirectory) {
+    File newFilePath;
+
+    //Create a new string excluding the "CD" part of the array
+    String targetDir = rawInput.substring(rawInput.indexOf(" ")).trim();
+
+
+    //FIXME: Make sure this logic is correct for the two different path types
+    //Go up a level to parent directory
+    if (targetDir.equals("..")) {
+      newFilePath = new File(currentDirectory.getParent());
+      // If input contains a "/", user entered a full file path
+    } else if (targetDir.contains(File.separator)) {
+      newFilePath = new File(targetDir);
+    } else { // Input is a relative path
+      newFilePath = new File(currentDirectory, targetDir);
+    }
+
+    // Check if the input file/directory exists, is a directory, and has read permissions
+    if (newFilePath.exists() && newFilePath.isDirectory() && newFilePath.canRead()) {
+      return newFilePath.getAbsolutePath(); // Success, return new
+    } else if (!newFilePath.canRead()) {
+      return "PD";
+    } else {
+      return "DDNE";
+    }
+  }
+
+  private void sendFile(String rawInput, File directory,
+                        PrintWriter outStream, BufferedReader inStream) {
+
+    // Create a new string excluding the command
+    String fileName = rawInput.substring(rawInput.indexOf(" ")).trim();
+
+    BufferedInputStream fileReader = null;
+    OutputStream bytesOut;
+    int bytesSent;
+    byte[] buffer = new byte[1000000]; // Can transfer 1mb at a time
+
+    // Set file to the filename the user gives in their request
+    File file = new File(directory, fileName);
+
+    /* Make sure that given file exists, is a file not a directory, and the
+       server has read permissions for the file */
+    if (file.isFile() && file.exists() && file.canRead()) {
+      try {
+        // Create a new stream to read from source file
+        fileReader = new BufferedInputStream(new FileInputStream(file));
+
+      } catch (FileNotFoundException e) {
+        System.err.println("Could not create file reader stream");
+        e.printStackTrace();
+      }
+
+      // Tell the client that the server is ready to send the file
+      outStream.println("READY");
+
+      try {
+        // Get client response after sending "READY"
+        if (inStream.readLine().equals("READY")) {
+          bytesOut = client.getOutputStream();
+
+          // Send the file length before sending the file
+          outStream.println(file.length());
+
+          // Keep reading from file and sending to client until all data is sent or error
+          while ((bytesSent = fileReader.read(buffer, 0, buffer.length)) != -1) {
+            bytesOut.write(buffer, 0, bytesSent);
+          }
+
+          System.out.println(file.getName() + " sent to client successfully!");
+          fileReader.close(); // Close the file input stream
+          bytesOut.flush();   // Flush the data output stream
+
+        } else {
+          System.out.println("Client has aborted the download");
+        }
+      } catch (IOException e) {
+        System.err.println("Download could get client response.");
+        e.printStackTrace();
+      }
+    } else {
+      outStream.println("FNF");
+    }
   }
 }
 
