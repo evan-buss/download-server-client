@@ -294,7 +294,6 @@ class ClientConnection implements Runnable {
     String targetDir = rawInput.substring(rawInput.indexOf(" ")).trim();
 
 
-    //FIXME: Make sure this logic is correct for the two different path types
     //Go up a level to parent directory
     if (targetDir.equals("..")) {
       newFilePath = new File(currentDirectory.getParent());

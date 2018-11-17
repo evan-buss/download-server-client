@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8134502d-fe58-47c5-a3d1-11204ceb6125" name="Default Changelist" comment="Fixed code problems that were shown with IDEA code analysis.">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/evan.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TODO" beforeDir="false" afterPath="$PROJECT_DIR$/TODO" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server.java" afterDir="false" />
     </list>
@@ -94,24 +94,24 @@
     <session id="339671396">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="TODO" value="551" />
-          <entry key="java" value="22364" />
-          <entry key="md" value="99" />
+          <entry key="TODO" value="558" />
+          <entry key="java" value="22372" />
+          <entry key="md" value="100" />
           <entry key="txt" value="1365" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="22364" />
-          <entry key="Markdown" value="99" />
-          <entry key="PLAIN_TEXT" value="1916" />
+          <entry key="JAVA" value="22372" />
+          <entry key="Markdown" value="100" />
+          <entry key="PLAIN_TEXT" value="1923" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.spring.boot.mvc.usages" />
       <usages-collector id="statistics.js.language.service.starts" />
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="12" />
+          <entry key="project.closed" value="13" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.18" value="1" />
@@ -150,30 +150,31 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TODO">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4">
-              <caret line="1" column="76" selection-start-line="1" selection-end-line="2" />
+            <state relative-caret-position="180">
+              <caret line="9" column="21" lean-forward="true" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="293" column="77" selection-start-line="293" selection-start-column="77" selection-end-line="293" selection-end-column="77" />
+            <state relative-caret-position="2000">
+              <caret line="154" column="13" selection-start-line="154" selection-start-column="13" selection-end-line="154" selection-end-column="13" />
               <folding>
+                <element signature="e#0#15731#0" expanded="true" />
                 <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="1503">
-                <caret line="102" column="77" selection-start-line="102" selection-start-column="77" selection-end-line="102" selection-end-column="77" />
+              <first_editor relative-caret-position="1169">
+                <caret line="166" column="64" lean-forward="true" selection-start-line="166" selection-start-column="64" selection-end-line="166" selection-end-column="64" />
               </first_editor>
               <second_editor />
             </state>
@@ -183,9 +184,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
-              <caret line="365" lean-forward="true" selection-start-line="365" selection-end-line="365" />
+            <state relative-caret-position="675">
+              <caret line="375" column="3" lean-forward="true" selection-start-line="375" selection-start-column="3" selection-end-line="375" selection-end-column="3" />
               <folding>
+                <element signature="e#0#12812#0" expanded="true" />
                 <element signature="imports" expanded="true" />
               </folding>
             </state>
@@ -214,6 +216,7 @@
       <find>successfully create</find>
       <find>successfully</find>
       <find>logic</find>
+      <find>readLine</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -224,10 +227,10 @@
       <list>
         <option value="$PROJECT_DIR$/src/Server/Server.java" />
         <option value="$PROJECT_DIR$/src/Client/Client.java" />
-        <option value="$PROJECT_DIR$/TODO" />
-        <option value="$PROJECT_DIR$/src/Server.java" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/Client.java" />
+        <option value="$PROJECT_DIR$/TODO" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/src/Server.java" />
       </list>
     </option>
   </component>
@@ -238,16 +241,15 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="186" />
-    <option name="y" value="150" />
-    <option name="width" value="1252" />
-    <option name="height" value="694" />
+    <option name="width" value="956" />
+    <option name="height" value="1050" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -269,7 +271,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -277,10 +278,10 @@
     <property name="SearchEverywhereHistoryKey" value="wrap&#9;ACTION&#9;EditorToggleUseSoftWraps&#10;info&#9;FILE&#9;file:///home/evan/Documents/download-server-client/info.pdf&#10;todo&#9;FILE&#9;file:///home/evan/Documents/download-server-client/TODO&#10;commit&#9;ACTION&#9;CheckinProject" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542336526764" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542412951357" />
     <property name="last_opened_file_path" value="$USER_HOME$/Downloads/server.java" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -420,7 +421,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="103260000" />
+    <option name="totallyTimeSpent" value="105846000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -433,9 +434,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1050" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12860192" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.12966916" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -448,7 +448,7 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info active="true" anchor="bottom" id="TODO" order="6" visible="true" weight="0.32899022" />
+      <window_info anchor="bottom" id="TODO" order="6" visible="true" weight="0.32899022" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
@@ -488,16 +488,28 @@
     <entry file="file://$USER_HOME$/Downloads/server.java" />
     <entry file="file://$PROJECT_DIR$/TODO">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4">
-          <caret line="1" column="76" selection-start-line="1" selection-end-line="2" />
+        <state relative-caret-position="180">
+          <caret line="9" column="21" lean-forward="true" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2000">
+          <caret line="154" column="13" selection-start-line="154" selection-start-column="13" selection-end-line="154" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#15731#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Server.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="365" lean-forward="true" selection-start-line="365" selection-end-line="365" />
+        <state relative-caret-position="675">
+          <caret line="375" column="3" lean-forward="true" selection-start-line="375" selection-start-column="3" selection-end-line="375" selection-end-column="3" />
           <folding>
+            <element signature="e#0#12812#0" expanded="true" />
             <element signature="imports" expanded="true" />
           </folding>
         </state>
@@ -506,20 +518,10 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="1503">
-            <caret line="102" column="77" selection-start-line="102" selection-start-column="77" selection-end-line="102" selection-end-column="77" />
+          <first_editor relative-caret-position="1169">
+            <caret line="166" column="64" lean-forward="true" selection-start-line="166" selection-start-column="64" selection-end-line="166" selection-end-column="64" />
           </first_editor>
           <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="293" column="77" selection-start-line="293" selection-start-column="77" selection-end-line="293" selection-end-column="77" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

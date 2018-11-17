@@ -143,16 +143,16 @@ class Client {
         case "DIR":
           outStream.println(parsedCommand); // Send "DIR" to server
           try {
-                        /* Server response protocol:
-                            The server sends back a long string of various file
-                            attributes. This includes three things:
-                                - Type (File or Folder)
-                                - Size (File or Folder Size in Bytes)
-                                - Name (Name of the File or folder)
-                            These attributes use a "#" character as a delimiter.
-                            It is up to the client to parse the output and display
-                            it in whatever format it wants.
-                         */
+          /* Server response protocol:
+              The server sends back a long string of various file
+              attributes. This includes three things:
+                  - Type (File or Folder)
+                  - Size (File or Folder Size in Bytes)
+                  - Name (Name of the File or folder)
+              These attributes use a "#" character as a delimiter.
+              It is up to the client to parse the output and display
+              it in whatever format it wants.
+           */
 
             String response = inStream.readLine();
             displayDirectory(response);
@@ -210,7 +210,7 @@ class Client {
           System.out.println("File could not be found on the server.");
           return;
         }
-      //  Otherwise response is "READY" and we just continue as normal
+        //  Otherwise response is "READY" and we just continue as normal
       } catch (IOException e) {
         System.err.println("DOWNLOAD error. Could not get response from server");
         e.printStackTrace();

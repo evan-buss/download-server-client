@@ -1,16 +1,9 @@
 - Allow users to download multiple files at once with the Download command.
 - Allow users to enter entire file name, including the extension or just the
 filename
-- Comment shit
-- Clean up code
 - Create some sort of download progress bar.
     - Indicator / Progress Bar
 
-
-- Make the dir output cleaner
-    - Just space separate the items and '/' separate the lines
-    - The client should handle parsing them nicely and the output
-    - This also reduces transfer data size
 
 - Create logging classes for both the server and the client
 
