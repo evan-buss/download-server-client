@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8134502d-fe58-47c5-a3d1-11204ceb6125" name="Default Changelist" comment="Fixed code problems that were shown with IDEA code analysis.">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TODO" beforeDir="false" afterPath="$PROJECT_DIR$/TODO" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server.java" afterDir="false" />
-    </list>
+    <list default="true" id="8134502d-fe58-47c5-a3d1-11204ceb6125" name="Default Changelist" comment="Fixed code problems that were shown with IDEA code analysis." />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,10 +20,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
+            <state relative-caret-position="5124">
               <caret line="352" column="18" selection-start-line="352" selection-start-column="16" selection-end-line="352" selection-end-column="18" />
               <folding>
                 <element signature="e#0#15135#0" expanded="true" />
@@ -45,7 +37,7 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="21">
+              <first_editor relative-caret-position="966">
                 <caret line="85" column="49" selection-start-line="85" selection-start-column="49" selection-end-line="85" selection-end-column="49" />
               </first_editor>
               <second_editor />
@@ -53,11 +45,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="501">
-              <caret line="350" column="40" selection-start-line="350" selection-start-column="40" selection-end-line="350" selection-end-column="40" />
+            <state relative-caret-position="522">
+              <caret line="354" column="3" lean-forward="true" selection-start-line="354" selection-start-column="3" selection-end-line="354" selection-end-column="3" />
               <folding>
                 <element signature="e#0#12734#0" expanded="true" />
                 <element signature="imports" expanded="true" />
@@ -117,9 +109,10 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="width" value="956" />
-    <option name="height" value="1050" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="962" />
+    <option name="width" value="958" />
+    <option name="height" value="1046" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -155,7 +148,7 @@
     <property name="SearchEverywhereHistoryKey" value="wrap&#9;ACTION&#9;EditorToggleUseSoftWraps&#10;info&#9;FILE&#9;file:///home/evan/Documents/download-server-client/info.pdf&#10;todo&#9;FILE&#9;file:///home/evan/Documents/download-server-client/TODO&#10;commit&#9;ACTION&#9;CheckinProject" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543283097414" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543283477394" />
     <property name="last_opened_file_path" value="$USER_HOME$/Downloads/server.java" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
@@ -247,7 +240,7 @@
       <workItem from="1542320684778" duration="3799000" />
       <workItem from="1542330724449" duration="5734000" />
       <workItem from="1542413182753" duration="123000" />
-      <workItem from="1543275736682" duration="7358000" />
+      <workItem from="1543275736682" duration="7660000" />
     </task>
     <task id="LOCAL-00001" summary="Small phase 1 updates">
       <created>1541885519085</created>
@@ -309,7 +302,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="113327000" />
+    <option name="totallyTimeSpent" value="113629000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -321,7 +314,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1046" extended-state="6" />
+    <frame x="962" y="0" width="958" height="1046" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.12966916" />
@@ -388,21 +381,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="352" column="18" selection-start-line="352" selection-start-column="16" selection-end-line="352" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#15135#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="21">
+          <first_editor relative-caret-position="966">
             <caret line="85" column="49" selection-start-line="85" selection-start-column="49" selection-end-line="85" selection-end-column="49" />
           </first_editor>
           <second_editor />
@@ -411,13 +393,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Server.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="350" column="40" selection-start-line="350" selection-start-column="40" selection-end-line="350" selection-end-column="40" />
+        <state relative-caret-position="522">
+          <caret line="354" column="3" lean-forward="true" selection-start-line="354" selection-start-column="3" selection-end-line="354" selection-end-column="3" />
           <folding>
             <element signature="e#0#12734#0" expanded="true" />
             <element signature="imports" expanded="true" />
             <element signature="e#3438#3898#0" expanded="true" />
             <element signature="e#3897#3898#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5124">
+          <caret line="352" column="18" selection-start-line="352" selection-start-column="16" selection-end-line="352" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#15135#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
