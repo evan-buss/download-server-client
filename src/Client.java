@@ -1,3 +1,4 @@
+
 /*
  * Author: Evan Buss
  * Major: Computer Science
@@ -45,7 +46,6 @@ class Client {
    */
   private static void connect(String hostname, int port) {
 
-
     // Create a new TCP socket and try to connect to server
     try {
       sock = new Socket(hostname, port);
@@ -61,11 +61,9 @@ class Client {
 
     // Setup streams for server input and output as well as user input
     try {
-      PrintWriter outStream = new PrintWriter(sock.getOutputStream(),
-              true);
+      PrintWriter outStream = new PrintWriter(sock.getOutputStream(), true);
 
-      BufferedReader inStream =
-              new BufferedReader(new InputStreamReader(sock.getInputStream()));
+      BufferedReader inStream = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 
       Scanner keyboard = new Scanner(System.in);
 
@@ -76,6 +74,9 @@ class Client {
 
       // Close socket when user chooses to exit
       sock.close();
+
+      // Close user input scanner when finished
+      keyboard.close();
 
     } catch (IOException ex) {
       System.err.println("Error Creating IO Streams");
@@ -90,11 +91,9 @@ class Client {
    *
    * @param outStream PrintWriter output stream connected to the server
    * @param inStream  BufferedReader input stream connected to the server
-   * @param keyboard  Scanner connected to System.in in order to get user
-   *                  input
+   * @param keyboard  Scanner connected to System.in in order to get user input
    */
-  private static void clientLoop(PrintWriter outStream,
-                                 BufferedReader inStream, Scanner keyboard) {
+  private static void clientLoop(PrintWriter outStream, BufferedReader inStream, Scanner keyboard) {
 
     String rawInput; // The unmodified string from the user's input
     String parsedCommand; // The parsed command from rawInput (first word)
@@ -143,16 +142,13 @@ class Client {
         case "DIR":
           outStream.println(parsedCommand); // Send "DIR" to server
           try {
-          /* Server response protocol:
-              The server sends back a long string of various file
-              attributes. This includes three things:
-                  - Type (File or Folder)
-                  - Size (File or Folder Size in Bytes)
-                  - Name (Name of the File or folder)
-              These attributes use a "#" character as a delimiter.
-              It is up to the client to parse the output and display
-              it in whatever format it wants.
-           */
+            /*
+             * Server response protocol: The server sends back a long string of various file
+             * attributes. This includes three things: - Type (File or Folder) - Size (File
+             * or Folder Size in Bytes) - Name (Name of the File or folder) These attributes
+             * use a "#" character as a delimiter. It is up to the client to parse the
+             * output and display it in whatever format it wants.
+             */
 
             String response = inStream.readLine();
             displayDirectory(response);
@@ -182,21 +178,18 @@ class Client {
   }
 
   /**
-   * Sends a request to the download server to download a specific file. The server
-   * will transfer the file to the client over a TCP connection.
+   * Sends a request to the download server to download a specific file. The
+   * server will transfer the file to the client over a TCP connection.
    *
-   * @param rawInput  Unformatted user input String that will be sent to the server
+   * @param rawInput  Unformatted user input String that will be sent to the
+   *                  server
    * @param keyboard  Scanner that parses user input from the command line
    * @param outStream TCP socket stream to the server
    * @param inStream  TCP socket stream from the server
    */
-  private static void receiveFile(String rawInput,
-                                  Scanner keyboard,
-                                  PrintWriter outStream,
-                                  BufferedReader inStream) {
+  private static void receiveFile(String rawInput, Scanner keyboard, PrintWriter outStream, BufferedReader inStream) {
 
     String fileName;
-
 
     // Send server request and get response
     if (rawInput.split("\\s+").length >= 2) {
@@ -205,12 +198,13 @@ class Client {
       fileName = rawInput.substring(rawInput.indexOf(" ")).trim();
 
       try {
+        // Get server response and check it for error codes
         String response = inStream.readLine();
         if (response.equals("FNF")) {
           System.out.println("File could not be found on the server.");
           return;
         }
-        //  Otherwise response is "READY" and we just continue as normal
+        // Otherwise response is "READY" and we just continue as normal
       } catch (IOException e) {
         System.err.println("DOWNLOAD error. Could not get response from server");
         e.printStackTrace();
@@ -225,16 +219,15 @@ class Client {
     // Downloaded files will be saved to the program's execution directory
     File newFile = new File(System.getProperty("user.dir"), fileName);
     byte[] buffer = new byte[1000000]; // File transfer buffer 1mb
-    boolean readyToReceive = false;    // Set true when client is ready for download
+    boolean readyToReceive = false; // Set true when client is ready for download
 
-    InputStream bytesIn = null;  // Receives data from server
+    InputStream bytesIn = null; // Receives data from server
     BufferedOutputStream fileWriter = null; // Outputs data to a file
 
     // Logic to prevent local file of the same name being overwritten
     // Check if the file already exists before downloading
     if (newFile.exists()) {
-      System.out.print("File of the same name already exists locally. " +
-              "Would you like to overwrite it? [y/n] ");
+      System.out.print("File of the same name already exists locally. " + "Would you like to overwrite it? [y/n] ");
 
       // User chooses to overwrite the file.
       if (keyboard.nextLine().toLowerCase().equals("y")) {
@@ -250,11 +243,9 @@ class Client {
           } else {
             System.out.println("You chose another name that exists... Pathetic. Download aborted.");
           }
-        } else {
-          System.out.println("Download Cancelled ");
         }
       }
-      //  File doesn't exist locally, so download normally
+      // File doesn't exist locally, so download normally
     } else {
       readyToReceive = true;
     }
@@ -273,7 +264,6 @@ class Client {
         e.printStackTrace();
       }
 
-      //FIXME: Can I use the existing buffered reader?
       // Create direct input stream from server. The existing buffered reader
       // is not good for file transfers
       try {
@@ -282,32 +272,38 @@ class Client {
         e.printStackTrace();
       }
 
-
       try {
 
         // Server sends the size of the file it will be sending
-        int bytesRemaining = Integer.parseInt(inStream.readLine());
-        System.out.println(newFile.getName() + " Stats:");
-        System.out.println("\tSize: " + bytesRemaining + " bytes");
-        System.out.println("\tLocation: " + newFile.getPath());
+        int totalSize = Integer.parseInt(inStream.readLine());
+        int bytesRemaining = totalSize;
+        System.out.println(newFile.getName() + ":");
+        if (totalSize > 1000000) {
+          System.out.println("\tSize: " + bytesRemaining / 1000000 + " megabytes");
+        } else {
+          System.out.println("\tSize: " + bytesRemaining + " bytes");
+        }
+        System.out.println("\tSave Location: " + newFile.getPath());
+        System.out.println("\tSave Location: " + newFile.getAbsolutePath());
+        System.out.println("\tSave Location: " + newFile.getCanonicalPath());
 
-        // TODO: Implement a timer or print the download time or progress bar
-        // System.out.println(Instant.now());
-
+        System.out.println("Progress:");
         // Make sure that fileWriter and bytesIn streams have been initialized
         if (fileWriter != null && bytesIn != null) {
           // Loop until all bytes of the incoming file have been successfully read
           while (bytesRemaining > 0) {
-
-            //FIXME: Not sure what this null pointer exception error means
             int bytesRead = bytesIn.read(buffer, 0, buffer.length);
             if (bytesRead != -1) {
               bytesRemaining -= bytesRead; // Decrement bytesRemaining counter
               fileWriter.write(buffer, 0, bytesRead); // Write new data to file
             }
+            // Display the file download progress as a percentage.
+            System.out.print("\r\t" +
+                    (((float) 1 - (float) bytesRemaining / (float) totalSize) * 100)
+                    + "% complete");
           }
+          System.out.println();
 
-          //FIXME: Not sure if I need to flush if I am closing right after
           // Flush and close the file output stream when finished
           fileWriter.flush();
           fileWriter.close();
@@ -317,7 +313,6 @@ class Client {
         }
 
         // Display success message.
-        // System.out.println(Instant.now());
         System.out.println("Download Finished!");
 
       } catch (IOException e) {
@@ -326,25 +321,22 @@ class Client {
       }
 
     } else {
-      System.out.println("Sending STOP to server");
+      System.out.println("Download Cancelled.");
       outStream.println("STOP");
     }
   }
 
-
   /**
    * Sends a request to the server to change the client's current directory.
    *
-   * @param rawInput  Complete user input string containing the "CD" request
-   *                  as well as any arguments
+   * @param rawInput  Complete user input string containing the "CD" request as
+   *                  well as any arguments
    * @param outStream TCP socket stream to the server
    * @param inStream  TCP socket stream from the server
-   * @return Returns new directory string if "CD" request successful.
-   * Else prints error to the console and returns "ERROR"
+   * @return Returns new directory string if "CD" request successful. Else prints
+   * error to the console and returns "ERROR"
    */
-  private static String changeDirectory(String rawInput,
-                                        PrintWriter outStream,
-                                        BufferedReader inStream) {
+  private static String changeDirectory(String rawInput, PrintWriter outStream, BufferedReader inStream) {
 
     // Make sure that "CD" request has at least a single argument
     if (rawInput.split("\\s+").length >= 2) {
@@ -359,8 +351,7 @@ class Client {
             System.out.println("CD Error: Directory does not exist.");
             return "ERROR";
           case "PD":
-            System.out.println("CD Error: Directory Access " +
-                    "Permission Denied");
+            System.out.println("CD Error: Directory Access " + "Permission Denied");
             return "ERROR";
           default:
             return response;
@@ -369,17 +360,16 @@ class Client {
         System.err.println("CD request did not return a response.");
         e.printStackTrace();
       }
-      // CD request with 1 argument is invalid
+      // CD request with 1 argument (CD only) is invalid
     } else {
       System.out.println("Invalid usage of CD command. Type HELP to learn more.");
     }
     return "ERROR";
   }
 
-
   /**
-   * Parses a string in server response format (Tokens separated by "#" chars)
-   * And displays the attributes for the user to see.
+   * Parses a string in server response format (Tokens separated by "#" chars) And
+   * displays the attributes for the user to see.
    *
    * @param str String response from the server
    */
@@ -395,10 +385,10 @@ class Client {
     } else {
       // Traverse entire string, printing out the attributes in groups of three
       while (parser.hasNext()) {
-        System.out.printf("%-6s    %-10s    %s%n",
-                parser.next(), parser.next(), parser.next());
+        System.out.printf("%-6s    %-10s    %s%n", parser.next(), parser.next(), parser.next());
       }
     }
+    parser.close();
   }
 
   /**
@@ -416,16 +406,13 @@ class Client {
     string.append("PWD\n");
     string.append("\tDisplays your current directory on the server\n\n");
     string.append("DIR\n");
-    string.append("\tDisplays file and folder listings of the current " +
-            "directory\n\n");
+    string.append("\tDisplays file and folder listings of the current " + "directory\n\n");
     string.append("CD <absolute/relative directory>\n");
-    string.append("\tNavigate to the specified directory.\n" +
-            "\tType .. to move up a directory\n\n");
+    string.append("\tNavigate to the specified directory.\n" + "\tType .. to move up a directory\n\n");
     string.append("DOWNLOAD <filename>\n");
     string.append("\tDownloads the specified file to ");
     string.append(System.getProperty("user.dir"));
-    string.append("\n\tIf the file exists you will be prompted to overwrite, " +
-            "rename, or cancel\n\tthe download\n");
+    string.append("\n\tIf the file exists you will be prompted to overwrite, " + "rename, or cancel\n\tthe download\n");
 
     System.out.println(string);
   }
@@ -433,7 +420,7 @@ class Client {
   /**
    * Displays a shell prompt menu where the user can type commands.
    *
-   * @param str a String that shows the user what server directory they are in
+   * @param str a string that represents the user's current server path
    */
   private static void shellMenu(String str) {
     System.out.println(str);

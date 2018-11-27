@@ -1,4 +1,9 @@
 # Download Server / Client
+> Server written by: Evan Buss
+
+> Client written by: Evan Buss
+
+> CSC328 - Network Programming
 
 The application is a download server and client written in Java. The client will
 connect to the server and have the ability to traverse directories and download
@@ -76,6 +81,9 @@ because we need the connection when downloading files to be reliable.
 ### BYE
 
 - Tells the server to close connection and exits the client program afterwards
+- **Protocol**
+  - The client sends a string terminated by a return character.
+  - The server reads the string until the newline character and checks its validity
 - **Response**: Server Closes Connection
 
 ### PWD

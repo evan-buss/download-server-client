@@ -19,8 +19,10 @@
  */
 
 import java.io.*;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.*;
+import java.util.ArrayList;
+import java.util.Enumeration;
+
 
 class Server {
   public static void main(String args[]) {
@@ -44,17 +46,41 @@ class Server {
       System.exit(-1);
     }
 
-    System.out.println("Server Listening on: " + server.getLocalPort());
+    // Logic to get the computer's network address.
+    // Because a computer can have multiple interfaces that are not simply IPs
+    // the results need to be filtered
+    try {
+      int port = server.getLocalPort();
+
+      ArrayList<String> interfaces = new ArrayList<>();
+      // Get enumeration of all the computer's network devices addresses
+      Enumeration<NetworkInterface> n = NetworkInterface.getNetworkInterfaces();
+      for (; n.hasMoreElements(); ) {
+        NetworkInterface e = n.nextElement();
+        Enumeration<InetAddress> a = e.getInetAddresses();
+        for (; a.hasMoreElements(); ) {
+          InetAddress addr = a.nextElement();
+          interfaces.add(addr.getHostAddress());
+        }
+      }
+
+      // Display the parsed addresses
+      System.out.println("Server Addresses: ");
+      for (String ip :
+              interfaces) {
+        if (Character.isDigit(ip.charAt(0))) {
+          if (ip.charAt(0) != '0') {
+            System.out.println("\tIP: " + ip + " Port: " + port);
+          }
+        }
+      }
+    } catch (Exception e) {
+      System.err.println("Error getting server address");
+      e.printStackTrace();
+    }
 
     // Server is bound to a port, wait for connections in a loop
     waitForConnection(server);
-
-    System.out.println("Exiting Server...");
-    try {
-      server.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
 
     System.exit(0);
   }
@@ -71,9 +97,25 @@ class Server {
 
     Socket client = null;
 
+    // Runtime hook to handle when a user presses Ctrl+C to close the server daemon
+    Runtime.getRuntime().addShutdownHook(new Thread() {
+      public void run() {
+        try {
+          Thread.sleep(200);
+          System.out.println("Closing server socket...");
+          server.close();
+        } catch (IOException e) {
+          System.err.println("Error closing server socket");
+          e.printStackTrace();
+        } catch (InterruptedException e) {
+          System.err.println("Error occurred during shutdown hook");
+          e.printStackTrace();
+        }
+      }
+    });
+
     // infinite loop waiting for new connections in main thread'
     // Close server daemon with Ctrl-C
-    //noinspection InfiniteLoopStatement
     while (true) {
       try {
         // Accept any incoming connections
@@ -87,11 +129,9 @@ class Server {
       if (client != null) {
         // Create a new thread and pass it the client connection socket
         // connection
-        Thread t = new Thread(new ClientConnection(client));
-        t.start();
+        new Thread(new ClientConnection(client)).start();
       }
     }
-
   }
 }
 
@@ -137,20 +177,18 @@ class ClientConnection implements Runnable {
     String rawInput = ""; // Full client request
     String parsedCommand = ""; // Command portion of client request
 
-    // Create server input and output streams
+
     try {
+      // Create server input and output streams
       outStream = new PrintWriter(client.getOutputStream(), true);
-
       inStream = new BufferedReader(new InputStreamReader(client.getInputStream()));
-
     } catch (IOException ex) {
       System.err.println("Error Creating Input and Output Streams");
       ex.printStackTrace();
     }
 
-    System.out.println("Server connected to a client at "
-            + client.getInetAddress() + " on "
-            + Thread.currentThread().getName());
+    System.out.println(Thread.currentThread().getName() +
+            ": Client connection from " + client.getInetAddress());
 
     // Send client a message that they have successfully connected
     outStream.println("HELLO");
@@ -174,9 +212,9 @@ class ClientConnection implements Runnable {
 
       switch (parsedCommand.toUpperCase()) {
         case "BYE":
-          System.out.println("Closing client's connection from "
-                  + client.getInetAddress() + " on "
-                  + Thread.currentThread().getName());
+          System.out.println(Thread.currentThread().getName() +
+                  ": BYE Received - Closing connection from " + client.getInetAddress());
+
           run = false; // break out of loop
           break;
         case "PWD":
@@ -185,7 +223,6 @@ class ClientConnection implements Runnable {
           outStream.println(currentDirectory.getPath()); // send file's current path
           break;
         case "DIR":
-          System.out.println("DIR Received");
           System.out.println(Thread.currentThread().getName() +
                   ": DIR Received");
           outStream.println(getDirectory(currentDirectory.getPath()));
@@ -205,11 +242,10 @@ class ClientConnection implements Runnable {
           // Send the function response string regardless, the client will handle
           // displaying the error codes to the user
           outStream.println(output);
-
           break;
         case "DOWNLOAD":
           System.out.println(Thread.currentThread().getName() +
-                  ": Download Received");
+                  ": DOWNLOAD Received");
           sendFile(rawInput, currentDirectory, outStream, inStream);
           break;
         default:
@@ -235,7 +271,7 @@ class ClientConnection implements Runnable {
    * @param directory absolute path String to a file directory
    * @return String delimited by "#" character between tokens. Each
    * file/folder has 3 different attributes.
-   * Type: File or Folder
+   * Type: "File: or "Folder"
    * Size: File or Folder Size in Bytes
    * Name: File or Folder Name
    * The client will be responsible for parsing the tokens and
@@ -248,11 +284,13 @@ class ClientConnection implements Runnable {
 
     /* Build a new string with files at the top and directories at the
        bottom. Delimit each entry with a "#" character. The client will
-       parse the tokens from the long string that the server sends.
+       parse the tokens from the long string that the server sends. Each
+       directory item has a total of 3 different details about it.
     */
     if (directoryListing != null) {
       for (File file : directoryListing) {
         if (file.isFile()) {
+          // Put all the files before the folder listings
           output.insert(0, "File#" +
                   +file.length() +
                   "#" + file.getName() + "#");
@@ -307,11 +345,13 @@ class ClientConnection implements Runnable {
     // Check if the input file/directory exists, is a directory, and has read permissions
     if (newFilePath.exists() && newFilePath.isDirectory() && newFilePath.canRead()) {
       return newFilePath.getAbsolutePath(); // Success, return new
+    } else if (!newFilePath.exists() || !newFilePath.isDirectory()){
+      return "DDNE"; // Directory does not exist
     } else if (!newFilePath.canRead()) {
-      return "PD";
-    } else {
-      return "DDNE";
+      return "PD"; // Permission denied
     }
+    // Return directory does not exists generic error code otherwise
+    return "DDNE";
   }
 
   private void sendFile(String rawInput, File directory,
@@ -358,16 +398,17 @@ class ClientConnection implements Runnable {
               bytesOut.write(buffer, 0, bytesSent);
             }
 
-            System.out.println(file.getName() + " sent to client successfully!");
+            System.out.println(Thread.currentThread().getName() + ": "
+                    + file.getName() + " sent to client");
             fileReader.close(); // Close the file input stream
             bytesOut.flush();   // Flush the data output stream
           }
 
         } else {
-          System.out.println("Client has aborted the download");
+          System.out.println("\tClient has aborted the download");
         }
       } catch (IOException e) {
-        System.err.println("Download could get client response.");
+        System.err.println("Download command could not get client response.");
         e.printStackTrace();
       }
     } else {
