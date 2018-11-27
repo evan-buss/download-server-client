@@ -284,8 +284,6 @@ class Client {
           System.out.println("\tSize: " + bytesRemaining + " bytes");
         }
         System.out.println("\tSave Location: " + newFile.getPath());
-        System.out.println("\tSave Location: " + newFile.getAbsolutePath());
-        System.out.println("\tSave Location: " + newFile.getCanonicalPath());
 
         System.out.println("Progress:");
         // Make sure that fileWriter and bytesIn streams have been initialized
@@ -298,9 +296,14 @@ class Client {
               fileWriter.write(buffer, 0, bytesRead); // Write new data to file
             }
             // Display the file download progress as a percentage.
-            System.out.print("\r\t" +
-                    (((float) 1 - (float) bytesRemaining / (float) totalSize) * 100)
-                    + "% complete");
+
+            int percentage = (int) (((float) 1 - (float) bytesRemaining / (float) totalSize) * 100);
+
+            System.out.printf("\r\t %3d%% complete", percentage);
+
+            // System.out.print("\r\t" +
+            //         (( 1 - bytesRemaining / totalSize) * 100)
+            //         + "%");
           }
           System.out.println();
 
