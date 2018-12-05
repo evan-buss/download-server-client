@@ -3,7 +3,7 @@
  * Author: Evan Buss
  * Major: Computer Science
  * Creation Date: November 06, 2018
- * Due Date: November 19, 2018
+ * Due Date: December 06, 2018
  * Course: CSC328 - 020 Network Programming
  * Professor: Dr. Frye
  * Assignment: Download Client / Server
@@ -278,16 +278,22 @@ class Client {
         int totalSize = Integer.parseInt(inStream.readLine());
         int bytesRemaining = totalSize;
         System.out.println(newFile.getName() + ":");
+
+        // Change size units depending on the file size
         if (totalSize > 1000000) {
           System.out.println("\tSize: " + bytesRemaining / 1000000 + " megabytes");
         } else {
           System.out.println("\tSize: " + bytesRemaining + " bytes");
         }
+
+        // Display where the new file can be found
         System.out.println("\tSave Location: " + newFile.getPath());
 
+        // Show the file download progress. Useful for large files
         System.out.println("Progress:");
         // Make sure that fileWriter and bytesIn streams have been initialized
         if (fileWriter != null && bytesIn != null) {
+
           // Loop until all bytes of the incoming file have been successfully read
           while (bytesRemaining > 0) {
             int bytesRead = bytesIn.read(buffer, 0, buffer.length);
@@ -295,15 +301,12 @@ class Client {
               bytesRemaining -= bytesRead; // Decrement bytesRemaining counter
               fileWriter.write(buffer, 0, bytesRead); // Write new data to file
             }
-            // Display the file download progress as a percentage.
 
+            // Display the file download progress as a percentage. Overwrite previous line.
             int percentage = (int) (((float) 1 - (float) bytesRemaining / (float) totalSize) * 100);
 
             System.out.printf("\r\t %3d%% complete", percentage);
 
-            // System.out.print("\r\t" +
-            //         (( 1 - bytesRemaining / totalSize) * 100)
-            //         + "%");
           }
           System.out.println();
 
@@ -363,8 +366,9 @@ class Client {
         System.err.println("CD request did not return a response.");
         e.printStackTrace();
       }
-      // CD request with 1 argument (CD only) is invalid
+
     } else {
+      // CD request with 1 argument (CD only) is invalid
       System.out.println("Invalid usage of CD command. Type HELP to learn more.");
     }
     return "ERROR";
@@ -380,8 +384,8 @@ class Client {
 
     // Create a new scanner to get tokens between "#" character.
     Scanner parser = new Scanner(str).useDelimiter("#");
-    System.out.println("Type      Size(b)       Name\n");
-    System.out.println("----      -------       ----\n");
+    System.out.println("Type      Size(b)       Name");
+    System.out.println("----      -------       ----");
 
     if (str.equals("EMPTY")) {
       System.out.println("Empty directory.\n");
@@ -391,6 +395,7 @@ class Client {
         System.out.printf("%-6s    %-10s    %s%n", parser.next(), parser.next(), parser.next());
       }
     }
+    System.out.println();
     parser.close();
   }
 
@@ -415,7 +420,7 @@ class Client {
     string.append("DOWNLOAD <filename>\n");
     string.append("\tDownloads the specified file to ");
     string.append(System.getProperty("user.dir"));
-    string.append("\n\tIf the file exists you will be prompted to overwrite, " + "rename, or cancel\n\tthe download\n");
+    string.append("\n\tIf the file exists you will be prompted to overwrite, rename, or cancel\n\tthe download\n");
 
     System.out.println(string);
   }

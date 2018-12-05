@@ -165,6 +165,10 @@ because we need the connection when downloading files to be reliable.
 
 - The server gets the filename request from the client and sends the given file
   to the client
+- The download function was designed with larger files in mind. The buffer is able
+  to transfer 1mb at a time.
+- I have tested the download function with a 500 mb file and it worked great. 
+    It works with small text files as well.
 - **Valid Arguments**
   - The server accepts 1 filename at a time. If the request has multiple words
     the server will interpret it as a single filename.
@@ -186,7 +190,7 @@ because we need the connection when downloading files to be reliable.
   7. The server and client write and read, respectively, from their output and
      input streams.
   8. The client keeps track of how many bytes it has read and stops when the number
-     is equal to the size of the file.
+     is equal to the file size received from the server.
      - This allows the client to be sure that it has read all data and has not lost
        any information over the network.
 

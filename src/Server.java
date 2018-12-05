@@ -2,7 +2,7 @@
  * Author: Evan Buss
  * Major: Computer Science
  * Creation Date: November 06, 2018
- * Due Date: November 19, 2018
+ * Due Date: December 06, 2018
  * Course: CSC328 - 020 Network Programming
  * Professor: Dr. Frye
  * Assignment: Download Client / Server
@@ -16,6 +16,7 @@
  * Language: Java 8 (1.8.0_101)
  * Compilation Command: javac Server.java
  * Execution Command: java Server [port]
+ * Shutting Down: Ctrl+C
  */
 
 import java.io.*;
@@ -297,7 +298,7 @@ class ClientConnection implements Runnable {
         } else if (file.isDirectory()) {
           output.append("Folder");
           output.append("#");
-          output.append(file.length());
+          output.append("-");
           output.append("#");
           output.append(file.getName());
           output.append("#");
