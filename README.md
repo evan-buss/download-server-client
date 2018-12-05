@@ -116,8 +116,8 @@ because we need the connection when downloading files to be reliable.
     wishes.
   - This decision allows the server to send a lot of detail about each item
     without wasting data on formatting characters like tabs, newlines, and spaces
-  - All files in the directory are listed above the folders, so the user can easily
-    tell what can be downloaded and what cannot.
+  - All files in the directory are listed before the folders are listed so the user can easily
+    tell what can be downloaded and what cannot (files can be downloaded...folders cannot).
   - The client currently parses the string in groups of three and displays each
     in a single formatted line.
   - If the directory is empty, the server sends back an `EMPTY` error code. The
