@@ -1,4 +1,5 @@
 # Download Server / Client
+
 > Server written by: Evan Buss
 
 > Client written by: Evan Buss
@@ -167,8 +168,8 @@ because we need the connection when downloading files to be reliable.
   to the client
 - The download function was designed with larger files in mind. The buffer is able
   to transfer 1mb at a time.
-- I have tested the download function with a 500 mb file and it worked great. 
-    It works with small text files as well.
+- I have tested the download function with a 500 mb file and it worked great.
+  It works with small text files as well.
 - **Valid Arguments**
   - The server accepts 1 filename at a time. If the request has multiple words
     the server will interpret it as a single filename.
@@ -183,13 +184,12 @@ because we need the connection when downloading files to be reliable.
      - If the file already exists, user is prompted to cancel, overwrite, or
        download the file under a different name.
   4. Client sends `READY` response to server if the user has chosen not to cancel
-     - Otherwise, the client sends `STOP` and the server aborts download as well
-  5. Server sends the length of the file it will send in bytes as a String with
-     a return character ('\n') at the end
-  6. Client receives the size of the new file and saves it.
-  7. The server and client write and read, respectively, from their output and
+     - Otherwise, the client sends `STOP` and the server aborts download as well 5.** Server sends the length of the file it will send in bytes as a String with
+       a return character ('\n') at the end**
+  5. Client receives the size of the new file and saves it.
+  6. The server and client write and read, respectively, from their output and
      input streams.
-  8. The client keeps track of how many bytes it has read and stops when the number
+  7. The client keeps track of how many bytes it has read and stops when the number
      is equal to the file size received from the server.
      - This allows the client to be sure that it has read all data and has not lost
        any information over the network.

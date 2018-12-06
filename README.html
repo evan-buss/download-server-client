@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <title>Download Server / Client</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css" integrity="sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv" crossorigin="anonymous">
+        <style>
+/*--------------------------------------------------------------------------------------------- * Copyright (c) Microsoft Corporation. All rights reserved. * Licensed under the MIT License. See License.txt in the project root for license information. *--------------------------------------------------------------------------------------------*/ body { font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback"; font-size: 14px; padding: 0 26px; line-height: 22px; word-wrap: break-word; } #code-csp-warning { position: fixed; top: 0; right: 0; color: white; margin: 16px; text-align: center; font-size: 12px; font-family: sans-serif; background-color:#444444; cursor: pointer; padding: 6px; box-shadow: 1px 1px 1px rgba(0,0,0,.25); } #code-csp-warning:hover { text-decoration: none; background-color:#007acc; box-shadow: 2px 2px 2px rgba(0,0,0,.25); } body.scrollBeyondLastLine { margin-bottom: calc(100vh - 22px); } body.showEditorSelection .code-line { position: relative; } body.showEditorSelection .code-active-line:before, body.showEditorSelection .code-line:hover:before { content: ""; display: block; position: absolute; top: 0; left: -12px; height: 100%; } body.showEditorSelection li.code-active-line:before, body.showEditorSelection li.code-line:hover:before { left: -30px; } .vscode-light.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(0, 0, 0, 0.15); } .vscode-light.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(0, 0, 0, 0.40); } .vscode-light.showEditorSelection .code-line .code-line:hover:before { border-left: none; } .vscode-dark.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(255, 255, 255, 0.4); } .vscode-dark.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(255, 255, 255, 0.60); } .vscode-dark.showEditorSelection .code-line .code-line:hover:before { border-left: none; } .vscode-high-contrast.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(255, 160, 0, 0.7); } .vscode-high-contrast.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(255, 160, 0, 1); } .vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before { border-left: none; } img { max-width: 100%; max-height: 100%; } a { text-decoration: none; } a:hover { text-decoration: underline; } a:focus, input:focus, select:focus, textarea:focus { outline: 1px solid -webkit-focus-ring-color; outline-offset: -1px; } hr { border: 0; height: 2px; border-bottom: 2px solid; } h1 { padding-bottom: 0.3em; line-height: 1.2; border-bottom-width: 1px; border-bottom-style: solid; } h1, h2, h3 { font-weight: normal; } h1 code, h2 code, h3 code, h4 code, h5 code, h6 code { font-size: inherit; line-height: auto; } table { border-collapse: collapse; } table > thead > tr > th { text-align: left; border-bottom: 1px solid; } table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table > tbody > tr > td { padding: 5px 10px; } table > tbody > tr + tr > td { border-top: 1px solid; } blockquote { margin: 0 7px 0 5px; padding: 0 16px 0 10px; border-left-width: 5px; border-left-style: solid; } code { font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback"; font-size: 14px; line-height: 19px; } body.wordWrap pre { white-space: pre-wrap; } .mac code { font-size: 12px; line-height: 18px; } pre:not(.hljs), pre.hljs code > div { padding: 16px; border-radius: 3px; overflow: auto; } /** Theming */ pre code { color: var(--vscode-editor-foreground); } .vscode-light pre:not(.hljs), .vscode-light code > div { background-color: rgba(220, 220, 220, 0.4); } .vscode-dark pre:not(.hljs), .vscode-dark code > div { background-color: rgba(10, 10, 10, 0.4); } .vscode-high-contrast pre:not(.hljs), .vscode-high-contrast code > div { background-color: rgb(0, 0, 0); } .vscode-high-contrast h1 { border-color: rgb(0, 0, 0); } .vscode-light table > thead > tr > th { border-color: rgba(0, 0, 0, 0.69); } .vscode-dark table > thead > tr > th { border-color: rgba(255, 255, 255, 0.69); } .vscode-light h1, .vscode-light hr, .vscode-light table > tbody > tr + tr > td { border-color: rgba(0, 0, 0, 0.18); } .vscode-dark h1, .vscode-dark hr, .vscode-dark table > tbody > tr + tr > td { border-color: rgba(255, 255, 255, 0.18); } 
+</style>
+<style>
+/* Tomorrow Theme */ /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */ /* Original theme - https://github.com/chriskempson/tomorrow-theme */ /* Tomorrow Comment */ .hljs-comment, .hljs-quote { color: #8e908c; } /* Tomorrow Red */ .hljs-variable, .hljs-template-variable, .hljs-tag, .hljs-name, .hljs-selector-id, .hljs-selector-class, .hljs-regexp, .hljs-deletion { color: #c82829; } /* Tomorrow Orange */ .hljs-number, .hljs-built_in, .hljs-builtin-name, .hljs-literal, .hljs-type, .hljs-params, .hljs-meta, .hljs-link { color: #f5871f; } /* Tomorrow Yellow */ .hljs-attribute { color: #eab700; } /* Tomorrow Green */ .hljs-string, .hljs-symbol, .hljs-bullet, .hljs-addition { color: #718c00; } /* Tomorrow Blue */ .hljs-title, .hljs-section { color: #4271ae; } /* Tomorrow Purple */ .hljs-keyword, .hljs-selector-tag { color: #8959a8; } .hljs { display: block; overflow-x: auto; color: #4d4d4c; padding: 0.5em; } .hljs-emphasis { font-style: italic; } .hljs-strong { font-weight: bold; }
+</style>
+<style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 id="download-server--client">Download Server / Client</h1>
+<blockquote>
+<p>Server written by: Evan Buss</p>
+</blockquote>
+<blockquote>
+<p>Client written by: Evan Buss</p>
+</blockquote>
+<blockquote>
+<p>CSC328 - Network Programming</p>
+</blockquote>
+<p>The application is a download server and client written in Java. The client will
+connect to the server and have the ability to traverse directories and download
+files found.</p>
+<p>The server allows anonymous connections without username/password. To get started
+compile the files and run them with the proper command-line arguments.</p>
+<h2 id="compilation">Compilation</h2>
+<p>The download and server files need to be compiled from .java files to .class files
+in order to be run.</p>
+<h3 id="client">Client</h3>
+<p><code>javac Client.java</code></p>
+<h3 id="server">Server</h3>
+<p><code>javac Server.java</code></p>
+<h3 id="both">Both</h3>
+<p><code>javac Client.java Server.java</code></p>
+<h2 id="execution">Execution</h2>
+<p>The server program should be executed before the client.</p>
+<h3 id="client-1">Client</h3>
+<p>The client receives the host and optional port number as command line arguments.</p>
+<p>Arguments</p>
+<ul>
+<li><code>&lt;host&gt;</code> (required) - the IP address or server name to connect to</li>
+<li><code>[port]</code> (optional) - the port number to connect to on the host</li>
+</ul>
+<p>By default, the client will attempt to connect to port 5001 of <code>&lt;host&gt;</code> if you
+do not specify a port.</p>
+<p><code>java Client &lt;host&gt; [port]</code></p>
+<h3 id="server-1">Server</h3>
+<p>Argument</p>
+<ul>
+<li><code>[port]</code> (optional) - the port number that the server should be bound to</li>
+</ul>
+<p>By default, the server will attempt to bind to port 5001 if a specific port
+number is not specified.</p>
+<p><code>java Server [port]</code></p>
+<h2 id="design-overview">Design Overview</h2>
+<p>The project consists of two parts. The download server and the client. The
+client serves to test the download server. The server program allows a
+connected client to navigate its directories and download files.</p>
+<p>The server is implemented with with a concurrent multi-threaded model. This
+enables multiple clients to be connected at the same time without without the
+server blocking requests.</p>
+<p>The server and client use a TCP connection to send information. This is important
+because we need the connection when downloading files to be reliable.</p>
+<h2 id="server-protocol">Server Protocol</h2>
+<h3 id="help-client-only">HELP (Client Only)</h3>
+<ul>
+<li>Lists the valid client commands to the user</li>
+<li>Does not send any data to the server</li>
+</ul>
+<h3 id="bye">BYE</h3>
+<ul>
+<li>Tells the server to close connection and exits the client program afterwards</li>
+<li><strong>Protocol</strong>
+<ul>
+<li>The client sends a string terminated by a return character.</li>
+<li>The server reads the string until the newline character and checks its validity</li>
+</ul>
+</li>
+<li><strong>Response</strong>: Server Closes Connection</li>
+</ul>
+<h3 id="pwd">PWD</h3>
+<ul>
+<li>Server sends the client its current working directory path.</li>
+<li>Client sets the path indicator in the shell prompt to the updated directory
+value</li>
+<li><strong>Response</strong>: Directory path string.</li>
+<li><strong>Data Validation</strong>
+<ul>
+<li>The client knows it has received the entire path string when it encounters a
+newline character.</li>
+<li>The server uses Java's println() method to send the path string to the client
+with a newline character ('\n') at the end via an output stream.</li>
+<li>The client uses Java's readLine() method on the input stream to read until it
+encounters a newline ('\n') character.</li>
+<li>If the methods do not find the newline character, they fail.</li>
+</ul>
+</li>
+</ul>
+<h3 id="dir">DIR</h3>
+<ul>
+<li>Server sends a list of all files and folders in the current working directory.</li>
+<li>The client displays this list to the user.</li>
+<li><strong>Design Decisions</strong>
+<ul>
+<li>Each file or folder encountered is sent back written as three pieces of data
+<ul>
+<li>Descriptor that says if the given name is a file or folder</li>
+<li>The size of the file or folder</li>
+<li>The name of the file or folder</li>
+</ul>
+</li>
+<li>These pieces of data are concatenated in a single string on the server side
+<ul>
+<li>Each token (or piece of data) is ended with a &quot;#&quot; character.</li>
+</ul>
+</li>
+<li>The client is responsible for parsing the tokens and formatting however it
+wishes.</li>
+<li>This decision allows the server to send a lot of detail about each item
+without wasting data on formatting characters like tabs, newlines, and spaces</li>
+<li>All files in the directory are listed before the folders are listed so the user can easily
+tell what can be downloaded and what cannot (files can be downloaded...folders cannot).</li>
+<li>The client currently parses the string in groups of three and displays each
+in a single formatted line.</li>
+<li>If the directory is empty, the server sends back an <code>EMPTY</code> error code. The
+client checks for that and outputs the error if present.</li>
+</ul>
+</li>
+<li><strong>Data Validation</strong>
+<ul>
+<li>Because the file details are formatted into a single string, the same
+validation method can be used that was used above in the <code>PWD</code> command.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cd-absolute-pathrelative-path">CD &lt;absolute path/relative path/..&gt;</h3>
+<ul>
+<li>
+<p>Server switches client's current working directory to the given directory</p>
+</li>
+<li>
+<p>Only accepts a single argument at a time. If there are multiple words, they
+are considered part of the same directory name</p>
+<ul>
+<li>Example: <code>CD Hello World</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Valid Arguments:</strong></p>
+<ul>
+<li>.. (two period characters)
+<ul>
+<li>moves up to the parent directory.</li>
+<li>Example: <code>CD ..</code></li>
+</ul>
+</li>
+<li>absolute path
+<ul>
+<li>Navigates to specified path</li>
+<li>Example: <code>CD /home/evan/Downloads</code></li>
+</ul>
+</li>
+<li>relative path
+<ul>
+<li>Navigates to specified directory name in the current path</li>
+<li>Example: <code>CD Downloads</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Response</strong>:</p>
+<ul>
+<li>The server sends back the updated working path directory as a string on
+success.</li>
+<li>On failure, it sends back an appropriate error code
+<ul>
+<li><code>DDNE</code>: Directory does not exist</li>
+<li><code>PD</code> : Permission Denied</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>On success, the client updates the current directory indicator in the shell to
+match the new server directory.</p>
+</li>
+<li>
+<p>On error, the client displays the error code in easily understood format to
+the user. It does not update the shell path indicator.</p>
+</li>
+<li>
+<p><strong>Data Validation</strong></p>
+<ul>
+<li>The client receives a string regardless of the outcome of an attempted <code>cd</code>
+command. Therefore, the previously mentioned method of data validation still
+works.</li>
+</ul>
+</li>
+</ul>
+<h3 id="download-filename">DOWNLOAD <filename></h3>
+<ul>
+<li>The server gets the filename request from the client and sends the given file
+to the client</li>
+<li>The download function was designed with larger files in mind. The buffer is able
+to transfer 1mb at a time.</li>
+<li>I have tested the download function with a 500 mb file and it worked great.
+It works with small text files as well.</li>
+<li><strong>Valid Arguments</strong>
+<ul>
+<li>The server accepts 1 filename at a time. If the request has multiple words
+the server will interpret it as a single filename.
+<ul>
+<li>Example: <code>DOWNLOAD Homework 1.pdf</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Data Validation</strong>
+<ol>
+<li>Client sends download request.</li>
+<li>Server makes sure the file exists and is readable.
+<ul>
+<li>Server sends <code>READY</code> response to the client if successful</li>
+<li>Server sends <code>FNF</code> (file not found) response if the file cannot be downloaded</li>
+</ul>
+</li>
+<li>Client receives response and makes sure a file of the same name does not
+already exist.
+<ul>
+<li>If the file already exists, user is prompted to cancel, overwrite, or
+download the file under a different name.</li>
+</ul>
+</li>
+<li>Client sends <code>READY</code> response to server if the user has chosen not to cancel
+<ul>
+<li>Otherwise, the client sends <code>STOP</code> and the server aborts download as well 5.** Server sends the length of the file it will send in bytes as a String with
+a return character ('\n') at the end**</li>
+</ul>
+</li>
+<li>Client receives the size of the new file and saves it.</li>
+<li>The server and client write and read, respectively, from their output and
+input streams.</li>
+<li>The client keeps track of how many bytes it has read and stops when the number
+is equal to the file size received from the server.
+<ul>
+<li>This allows the client to be sure that it has read all data and has not lost
+any information over the network.</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="issues">Issues</h2>
+<p>No issues reported.</p>
+
+    </body>
+    </html>

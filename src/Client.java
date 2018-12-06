@@ -3,7 +3,7 @@
  * Author: Evan Buss
  * Major: Computer Science
  * Creation Date: November 06, 2018
- * Due Date: December 06, 2018
+ * Due Date: December 05, 2018
  * Course: CSC328 - 020 Network Programming
  * Professor: Dr. Frye
  * Assignment: Download Client / Server
@@ -388,7 +388,7 @@ class Client {
     System.out.println("----      -------       ----");
 
     if (str.equals("EMPTY")) {
-      System.out.println("Empty directory.\n");
+      System.out.println("Empty directory.");
     } else {
       // Traverse entire string, printing out the attributes in groups of three
       while (parser.hasNext()) {

@@ -2,7 +2,7 @@
  * Author: Evan Buss
  * Major: Computer Science
  * Creation Date: November 06, 2018
- * Due Date: December 06, 2018
+ * Due Date: December 05, 2018
  * Course: CSC328 - 020 Network Programming
  * Professor: Dr. Frye
  * Assignment: Download Client / Server
@@ -68,7 +68,7 @@ class Server {
       // Display the parsed addresses
       System.out.println("Server Addresses: ");
       for (String ip :
-              interfaces) {
+          interfaces) {
         if (Character.isDigit(ip.charAt(0))) {
           if (ip.charAt(0) != '0') {
             System.out.println("\tIP: " + ip + " Port: " + port);
@@ -189,7 +189,7 @@ class ClientConnection implements Runnable {
     }
 
     System.out.println(Thread.currentThread().getName() +
-            ": Client connection from " + client.getInetAddress());
+        ": Client connection from " + client.getInetAddress());
 
     // Send client a message that they have successfully connected
     outStream.println("HELLO");
@@ -207,30 +207,32 @@ class ClientConnection implements Runnable {
         }
 
       } catch (IOException ex) {
-        System.err.println("Error Reading From Input Stream");
+        System.err.println("Error Reading From Input Stream. Closing " +
+            "connection");
         ex.printStackTrace();
+        break;
       }
 
       switch (parsedCommand.toUpperCase()) {
         case "BYE":
           System.out.println(Thread.currentThread().getName() +
-                  ": BYE Received - Closing connection from " + client.getInetAddress());
+              ": BYE Received - Closing connection from " + client.getInetAddress());
 
           run = false; // break out of loop
           break;
         case "PWD":
           System.out.println(Thread.currentThread().getName() +
-                  ": PWD Received");
+              ": PWD Received");
           outStream.println(currentDirectory.getPath()); // send file's current path
           break;
         case "DIR":
           System.out.println(Thread.currentThread().getName() +
-                  ": DIR Received");
+              ": DIR Received");
           outStream.println(getDirectory(currentDirectory.getPath()));
           break;
         case "CD":
           System.out.println(Thread.currentThread().getName() +
-                  ": CD Received");
+              ": CD Received");
 
           // Attempt to change directory and store output in String
           String output = changeDirectory(rawInput, currentDirectory);
@@ -246,13 +248,13 @@ class ClientConnection implements Runnable {
           break;
         case "DOWNLOAD":
           System.out.println(Thread.currentThread().getName() +
-                  ": DOWNLOAD Received");
+              ": DOWNLOAD Received");
           sendFile(rawInput, currentDirectory, outStream, inStream);
           break;
         default:
           outStream.println("Client Request Error.");
           System.out.println(Thread.currentThread().getName() +
-                  ": Client sent invalid command");
+              ": Client sent invalid command");
       }
     }
 
@@ -293,8 +295,8 @@ class ClientConnection implements Runnable {
         if (file.isFile()) {
           // Put all the files before the folder listings
           output.insert(0, "File#" +
-                  +file.length() +
-                  "#" + file.getName() + "#");
+              +file.length() +
+              "#" + file.getName() + "#");
         } else if (file.isDirectory()) {
           output.append("Folder");
           output.append("#");
@@ -346,7 +348,7 @@ class ClientConnection implements Runnable {
     // Check if the input file/directory exists, is a directory, and has read permissions
     if (newFilePath.exists() && newFilePath.isDirectory() && newFilePath.canRead()) {
       return newFilePath.getAbsolutePath(); // Success, return new
-    } else if (!newFilePath.exists() || !newFilePath.isDirectory()){
+    } else if (!newFilePath.exists() || !newFilePath.isDirectory()) {
       return "DDNE"; // Directory does not exist
     } else if (!newFilePath.canRead()) {
       return "PD"; // Permission denied
@@ -355,6 +357,17 @@ class ClientConnection implements Runnable {
     return "DDNE";
   }
 
+  /**
+   * Send a file to the connected client. Client must send the filename. Server
+   * checks if the filename exists, sends READY, client confirms the download,
+   * sends READY, server sends the file size, client receives the file size.
+   * Server starts sending the file in 1mb chunks. Client receives data.
+   *
+   * @param rawInput  - The entire input string received from the Client
+   * @param directory - The client's current working director
+   * @param outStream - Data output stream to the client
+   * @param inStream  - Data input stream from the client
+   */
   private void sendFile(String rawInput, File directory,
                         PrintWriter outStream, BufferedReader inStream) {
 
@@ -400,7 +413,7 @@ class ClientConnection implements Runnable {
             }
 
             System.out.println(Thread.currentThread().getName() + ": "
-                    + file.getName() + " sent to client");
+                + file.getName() + " sent to client");
             fileReader.close(); // Close the file input stream
             bytesOut.flush();   // Flush the data output stream
           }
